@@ -1,0 +1,28 @@
+name: Deploy ProInteligenciaAPI
+on:
+  push:
+    branches:
+      - main # Cambiar esto al nombre de la rama que quieres que despliegue el proyecto
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to Remote Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_PORT }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            # Comandos a ejecutar en el servidor remoto
+            cd /var/www/ProInteligenciaAPI
+            git reset --hard HEAD
+            git pull
+            npm install
+            pm2 start ecosystem.config.js

@@ -1,0 +1,58 @@
+---
+title: "Alerta de Suscripcion"
+bodyClass: bg-slate-200
+---
+<x-main>
+    <table class="mx-auto font-sans">
+        <tr>
+            <td class="w-[600px] font-sans rounded-xl bg-white">
+                <!-- Imagen -->
+            <x-sinimLogo />
+            <!-- Contenido -->
+            <div class="w-full text-left text-black">
+                <div class="p-8 font-sans">
+                    <p>
+                        Hola, <span class="font-bold">@{{name}}</span> se ha suscrito a las alertas de IED.
+                    </p>
+                    <p>Sus preferencias:</p>
+                    <div class="w-full rounded-xl bg-navy">
+                        <div class="p-4">
+                            @{{#if categories}}
+                            <table class="w-full">
+                                <thead>
+                                    <tr>
+                                        <th class="font-sans text-xl font-semibold text-white">Categorías</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-sans text-xs font-normal text-white">
+                                            @{{#each categories}}
+                                            <div class="relative rounded-full inline-block select-none whitespace-nowrap bg-[rgba(255,255,255,.3)] py-2 px-3.5 align-middle font-sans text-xs mt-px font-normal text-center text-white m-1">
+                                                @{{name}}
+                                            </div>
+                                            @{{/each}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @{{/if}}
+                        </div>
+                    </div>
+                    <p>Atentamente,<br><span class="font-bold">SINIM Prodominicana</span></p>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <!-- Footer -->
+            <x-footer />
+                </td>
+            </tr>
+        </table>
+    
+        
+    
+    
+    
+</x-main>

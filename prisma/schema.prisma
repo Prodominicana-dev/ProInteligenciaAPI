@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AccesoaMercados {
+  id          String     @id @default(uuid())
+  countryId   Int
+  productId   String
+  tradeAgreement String? // Acuerdo comercial
+  tariffsImposed String? // Aranceles impuestos
+  webResource String? // Recurso web
+  technicalRequirements String? // Requisitos técnicos
+  permitsCertifications String? // Permisos y certificaciones
+  labelingCertifications String? // Etiquetado y certificaciones
+  outputRequirement String? // Requisitos de salida
+  importRequirement String? // Requisitos de importación
+  date       DateTime? @default(now())
+  status     String? @default("active")
+  country     Country @relation(fields: [countryId], references: [id])
+  product     Product @relation(fields: [productId], references: [id])
+}
+
+model Country {
+  id    Int     @id @default(autoincrement())
+  name  String
+  abbreviation String @unique
+  continent String?
+  group String?
+  accesoamercados AccesoaMercados[]
+  suscriber_countries SuscriberToCountry[]
+}
+
+model Product {
+  id          String     @id @default(uuid())
+  name        String
+  code        String
+  date        DateTime? @default(now())
+  oldID       Int? @unique
+  accesoamercados       AccesoaMercados[]
+  suscriber_products  SuscriberToProduct[]
+  status     String? @default("active")
+}
+
+model reservedDomains{
+  id              String     @id @default(uuid())
+  name            String
+  platform        String
+  status     String? @default("active")
+}
+
+model Datamarket{
+  id             String     @id @default(uuid())
+  title         String
+  category      String
+  url           String
+  categoryPriority Int? @default(1)
+  date          DateTime? @default(now())
+  status     String? @default("active")
+}
+
+model AlertaComercial{
+  id             String     @id @default(uuid())
+  title          String // Titulo
+  description    String? // Descripción
+  categoryId      String  // Categoría
+  category Category @relation(fields: [categoryId], references: [id])
+  image           String? // Imagen
+  date            DateTime? @default(now()) // Fecha de registro
+  products        Json[] // Productos
+  countries       Json[] // Países (ID)
+  oldID           Int? // ID anterior
+  platform      String // Plataforma
+  status     String? @default("active")
+  isPublic        Boolean? @default(false) // Publicado
+  published       Boolean? @default(false) // Publicado
+}
+
+model AlertaIED{
+  id String @id @default(uuid())
+  title String
+  description String?
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  image String?
+  date DateTime? @default(now())
+  status String? @default("active")
+  isPublic Boolean @default(false)
+  published Boolean @default(false)
+}
+
+model Category{
+  id String @id @default(uuid())
+  name String
+  platform String
+  alertaIED AlertaIED[]
+  alertaComercial AlertaComercial[]
+  suscriber_category SuscriberToCategory[]
+}
+
+model Suscriber{
+  id            String    @id @default(uuid())
+  email         String         
+  name          String?         // Nombre y apellido
+  platform      String        
+  status        String?         @default("active")
+  suscriber_countries SuscriberToCountry[]
+  suscriber_products  SuscriberToProduct[]
+  suscriber_category SuscriberToCategory[]
+}
+
+model SuscriberToCountry {
+  suscriberId String
+  countryId   Int
+  suscriber Suscriber? @relation(fields: [suscriberId], references: [id])
+  country   Country?   @relation(fields: [countryId] , references: [id])
+
+  @@id([suscriberId, countryId])
+}
+
+model SuscriberToProduct {
+  suscriberId String
+  productId   String
+  suscriber Suscriber? @relation(fields: [suscriberId], references: [id])
+  product   Product?   @relation(fields: [productId] , references: [id])
+  @@id([suscriberId, productId])
+}
+
+model SuscriberToCategory{
+  suscriberId String
+  categoryId  String
+  suscriber Suscriber? @relation(fields: [suscriberId], references: [id])
+  category   Category?   @relation(fields: [categoryId] , references: [id])
+  @@id([suscriberId, categoryId])
+}
+
+model Partner{
+  id            String    @id @default(uuid())
+  title         String
+  type          String
+  description   String?
+  image         String?
+  url           String?
+}
+
+model Post{
+  id String @id @default(uuid())
+  title String
+  category String?
+  type String?
+  pdf String?
+  language String?
+  status String? @default("active")
+  date DateTime? @default(now())
+}
+
+model Log{
+  id String @id @default(uuid())
+  username String?
+  email String?
+  action String?
+  platform String?
+  date DateTime? @default(now())
+}
