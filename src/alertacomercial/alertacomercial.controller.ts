@@ -73,7 +73,6 @@ export class AlertacomercialController {
     // Convertir data.products y data.countries a JSON
     data.products = JSON.parse(data.products);
     data.countries = JSON.parse(data.countries);
-    data.categoryId = Number(data.categoryId);
     data.isPublic = data.isPublic === 'true';
     if (file === undefined) {
       const alertacomercial =
@@ -113,40 +112,47 @@ export class AlertacomercialController {
     @UploadedFile() file: Express.Multer.File,
     @Res() res,
   ) {
-    // Convertir data.products y data.countries a JSON
-    data.products = JSON.parse(data.products);
-    data.countries = JSON.parse(data.countries);
-    data.categoryId = Number(data.categoryId);
-    data.isPublic = data.isPublic === 'true';
-    data.platform = 'alertacomercial';
-    // Crear el AlertaComercial
-    const alertacomercial =
-      await this.alertacomercialService.createAlertaComercial(data);
-    const folderPath = path.join(
-      process.cwd(),
-      `public/data/alertacomercial/images/${alertacomercial.id}`,
-    );
-    await mkdirp(folderPath);
-    const imageName = `${new Date().getTime()}.${file.originalname
-      .split('.')
-      .pop()}`;
-    fs.writeFile(path.join(folderPath, imageName), file.buffer, async (err) => {
-      if (err) {
-        res.status(500).json({ error: err });
-      } else {
-        alertacomercial.image = imageName;
-        this.alertacomercialService.updateAlertaComercial(
-          alertacomercial.id,
-          alertacomercial,
-        );
-        if (alertacomercial.published) {
-          await this.alertacomercialService.publishAlertacomercial(
-            alertacomercial.id,
-          );
-        }
-        res.status(200).json({ message: alertacomercial });
-      }
-    });
+    try {
+      // Convertir data.products y data.countries a JSON
+      data.products = JSON.parse(data.products);
+      data.countries = JSON.parse(data.countries);
+      data.isPublic = data.isPublic === 'true';
+      data.platform = 'alertacomercial';
+      // Crear el AlertaComercial
+      const alertacomercial =
+        await this.alertacomercialService.createAlertaComercial(data);
+      const folderPath = path.join(
+        process.cwd(),
+        `public/data/alertacomercial/images/${alertacomercial.id}`,
+      );
+      await mkdirp(folderPath);
+      const imageName = `${new Date().getTime()}.${file.originalname
+        .split('.')
+        .pop()}`;
+      fs.writeFile(
+        path.join(folderPath, imageName),
+        file.buffer,
+        async (err) => {
+          if (err) {
+            res.status(500).json({ error: err });
+          } else {
+            alertacomercial.image = imageName;
+            this.alertacomercialService.updateAlertaComercial(
+              alertacomercial.id,
+              alertacomercial,
+            );
+            if (alertacomercial.published) {
+              await this.alertacomercialService.publishAlertacomercial(
+                alertacomercial.id,
+              );
+            }
+            res.status(200).json({ message: alertacomercial });
+          }
+        },
+      );
+    } catch (error) {
+      res.status(500).json({ error });
+    }
   }
 
   // Delete definitive AlertaComercial

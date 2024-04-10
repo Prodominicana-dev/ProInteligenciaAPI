@@ -70,7 +70,6 @@ export class AlertaIEDController {
     @UploadedFile() file: Express.Multer.File,
     @Res() res,
   ) {
-    data.categoryId = Number(data.categoryId);
     data.published = Boolean(data.published);
     data.isPublic = data.isPublic === 'true';
 
@@ -111,7 +110,6 @@ export class AlertaIEDController {
     @UploadedFile() file: Express.Multer.File,
     @Res() res,
   ) {
-    data.categoryId = Number(data.categoryId);
     data.published = Boolean(data.published);
     data.isPublic = data.isPublic === 'true';
     // Crear el AlertaComercial
