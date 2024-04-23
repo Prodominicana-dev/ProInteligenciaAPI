@@ -23,7 +23,7 @@ export class SuscriberService {
 
   async createSubscriber(data) {
     const { products, countries, ...subscriberData } = data;
-
+    console.log(products, countries, subscriberData);
     return await this.prismaService.suscriber.create({
       data: {
         ...subscriberData,

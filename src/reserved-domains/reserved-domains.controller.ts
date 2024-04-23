@@ -1,5 +1,5 @@
-import { Controller } from '@nestjs/common';
-import { Get, Post, Put, Delete, Param, Body, UseGuards } from '@nestjs/common';
+import { Controller, Patch } from '@nestjs/common';
+import { Get, Post, Res, Delete, Param, Body, UseGuards } from '@nestjs/common';
 import { ReservedDomainsService } from './reserved-domains.service';
 import { reservedDomains } from '@prisma/client';
 
@@ -10,6 +10,11 @@ export class ReservedDomainsController {
   @Get()
   async getAllReservedDomains() {
     return this.reservedDomainsService.getAllReservedDomains();
+  }
+
+  @Get('/all')
+  async getAllDomains() {
+    return this.reservedDomainsService.getAllDomains();
   }
 
   @Get(':id')
@@ -23,17 +28,33 @@ export class ReservedDomainsController {
   }
 
   @Post()
-  async createReservedDomains(@Body() data: any) {
-    return this.reservedDomainsService.createReservedDomains(data);
+  async createReservedDomains(@Body() data: any, @Res() res) {
+   try {
+    console.log(data)
+    const reservedDomains = await this.reservedDomainsService.createReservedDomains(data);
+    return res.status(201).json(reservedDomains);
+   } catch (error) {
+    return res.status(400).json({ message: error.message });
+   }
   }
 
-  @Put(':id')
-  async editReservedDomains(@Param('id') id: string, @Body() data: any) {
-    return this.reservedDomainsService.editReservedDomains(id, data);
+  @Patch(':id')
+  async editReservedDomains(@Param('id') id: string, @Body() data: any, @Res() res) {
+    try {
+      const reservedDomains = await this.reservedDomainsService.editReservedDomains(id, data);
+      return res.status(200).json(reservedDomains);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   }
 
   @Delete(':id')
-  async deleteReservedDomainsById(@Param('id') id: string) {
-    return this.reservedDomainsService.deleteReservedDomainsById(id);
+  async deleteReservedDomainsById(@Param('id') id: string, @Res() res) {
+    try {
+      const reservedDomains = await this.reservedDomainsService.deleteReservedDomainsById(id);
+      return res.status(200).json(reservedDomains);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
   }
 }

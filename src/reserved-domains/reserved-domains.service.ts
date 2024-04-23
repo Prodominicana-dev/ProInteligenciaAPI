@@ -9,11 +9,15 @@ export class ReservedDomainsService {
   async createReservedDomains(
     data: Prisma.reservedDomainsCreateInput,
   ): Promise<reservedDomains> {
+   try {
     return this.prisma.reservedDomains.create({
       data: {
         ...data,
       },
     });
+   } catch (error) {
+    console.log(error)
+   }
   }
 
   async getReservedDomainsById(id: string): Promise<reservedDomains | null> {
@@ -30,14 +34,27 @@ export class ReservedDomainsService {
     });
   }
 
+  async getAllDomains(){
+    try {
+      return this.prisma.reservedDomains.findMany({orderBy: [{platform: 'asc'}, {name: 'asc'}] })
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async editReservedDomains(
     id: string,
     data: Prisma.reservedDomainsUpdateInput,
   ): Promise<reservedDomains> {
-    return this.prisma.reservedDomains.update({
-      where: { id },
-      data,
-    });
+    try {
+      return this.prisma.reservedDomains.update({
+        where: { id },
+        data,
+      });
+    } catch (error) {
+      console.log(error)
+      throw new Error(error);
+    }
   }
 
   async getAllReservedDomains(): Promise<any> {
