@@ -12,13 +12,22 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
     MailerModule.forRoot({
       // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
       // or
+      // transport: {
+      //   host: 'smtp.office365.com',
+      //   port: 587,
+      //   secure: true,
+      //   auth: {
+      //     user: 'alertaelectronica@prodominicana.gob.do',
+      //     pass: `#czU/1HHY~<Gr@\\x02u-K-C/K(U`,
+      //   },
+      // },
       transport: {
-        host: 'smtp.office365.com',
+        host: 'smtp-mail.outlook.com',
         port: 587,
         secure: false,
         auth: {
-          user: 'alertaelectronica@prodominicana.gob.do',
-          pass: `#czU/1HHY~<Gr@\\x02u-K-C/K(U`,
+          user: 'alertaelectronica@prodominicana.gob.do', // 👈
+          pass: `#czU/1HHY~<Gr@\\x02u-K-C/K(U`, // 👈
         },
       },
       defaults: {
