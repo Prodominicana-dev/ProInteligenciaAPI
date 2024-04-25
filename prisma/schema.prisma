@@ -51,6 +51,7 @@ model reservedDomains{
   name            String
   platform        String
   status     String? @default("active")
+  alertaIED       IEDDomain[]
 }
 
 model Datamarket{
@@ -91,6 +92,15 @@ model AlertaIED{
   status String? @default("active")
   isPublic Boolean @default(false)
   published Boolean @default(false)
+  domains IEDDomain[]
+}
+
+model IEDDomain{
+  alertIEDId String
+  domainId String
+  alertaIED AlertaIED @relation(fields: [alertIEDId], references: [id])
+  reservedDomains reservedDomains @relation(fields: [domainId], references: [id])
+  @@id([alertIEDId, domainId])
 }
 
 model Category{

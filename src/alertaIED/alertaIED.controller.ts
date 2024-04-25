@@ -70,7 +70,8 @@ export class AlertaIEDController {
     @UploadedFile() file: Express.Multer.File,
     @Res() res,
   ) {
-    data.published = Boolean(data.published);
+    try {
+      data.published = Boolean(data.published);
     data.isPublic = data.isPublic === 'true';
 
     if (file === undefined) {
@@ -100,6 +101,10 @@ export class AlertaIEDController {
       await this.alertaIEDService.updateAlertaIED(id, data);
       res.status(200).json({ message: data });
     });
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Error' });
+    }
   }
 
   // Create AlertaComercial
@@ -114,7 +119,7 @@ export class AlertaIEDController {
     data.isPublic = data.isPublic === 'true';
     // Crear el AlertaComercial
     const alertacomercial =
-      await this.alertaIEDService.createAlertaComercial(data);
+      await this.alertaIEDService.createAlertaIED(data);
 
     const folderPath = path.join(
       process.cwd(),

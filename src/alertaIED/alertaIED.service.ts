@@ -173,15 +173,30 @@ export class AlertaIEDService {
     });
   }
 
-  async createAlertaComercial(
-    data: Prisma.AlertaIEDCreateInput,
-  ): Promise<AlertaIED> {
-    data.published = Boolean(data.published);
-    const alertacomercial = await this.prisma.alertaIED.create({
-      data,
-    });
+  async createAlertaIED(
+    data: any
+  ): Promise<any> {
+   try {
+    const { domains } = data
+    console.log(data)
+    // data.published = Boolean(data.published);
+    // const alertacomercial = await this.prisma.alertaIED.create({
+    //   data: {
+    //     ...data,
+    //     domains: { create: domains?.map((domains) => ({
+    //       domains: {
+    //         connect: { domainId: domains }
+    //       }
+    //     })), },
+    //   },
+    // });
 
-    return alertacomercial;
+    // return alertacomercial;
+    return
+   } catch (error) {
+      console.log(error);
+      throw new Error(error)
+   }
   }
 
   async publishAlertaIED(id: string): Promise<any> {
