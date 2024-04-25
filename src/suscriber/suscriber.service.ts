@@ -156,7 +156,7 @@ export class SuscriberService {
           console.log(title, sub.name, products, countries);
           return await this.mailService.alertaComercialNotifyMail(
             title,
-            ['rosaabreu@prodominicana.gob.do', 'andydelrosario@prodominicana.gob.do', 'emilioconde@prodominicana.gob.do'],
+            ['emilioconde@prodominicana.gob.do', 'rosaabreu@prodominicana.gob.do', 'andydelrosario@prodominicana.gob.do' ],
             sub.name,
             products,
             countries,
