@@ -26,4 +26,49 @@ export class CountryService {
 
     return countriesLabelValue;
   }
+
+  // Crear país
+  async create(data: any){
+    try {
+      return await this.prisma.country.create({
+        data
+      });
+    } catch (error) {
+      console.log(error)
+      throw new Error(error);
+      
+    }
+  }
+
+  // Editar país
+  async update(id: number, data: any){
+    try {
+      return await this.prisma.country.update({
+        where: { id: id },
+        data
+      });
+    } catch (error) {
+      console.log(error)
+      throw new Error(error);
+    }
+  }
+
+  // Eliminar país
+  async delete(id: number){
+    try {
+      return await this.prisma.country.delete({
+        where: { id: id }
+      });
+    } catch (error) {
+      console.log(error)
+      throw new Error(error);
+    }
+  }
+
+  // Obtener un país por la abbreviation
+  async getCountryByAbbreviation(abbreviation: string): Promise<Country | null> {
+    return this.prisma.country.findFirst({
+      where: { abbreviation },
+    });
+  }
 }
