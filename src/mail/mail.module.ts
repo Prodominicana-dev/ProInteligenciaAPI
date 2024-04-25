@@ -4,34 +4,21 @@ import { join } from 'path';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { MailController } from './mail.controller';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
-import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 
 @Module({
   imports: [
     MailerModule.forRoot({
-      // transport: 'smtps://user@example.com:topsecret@smtp.example.com',
-      // or
-      // transport: {
-      //   host: 'smtp.office365.com',
-      //   port: 587,
-      //   secure: true,
-      //   auth: {
-      //     user: 'alertaelectronica@prodominicana.gob.do',
-      //     pass: `#czU/1HHY~<Gr@\\x02u-K-C/K(U`,
-      //   },
-      // },
       transport: {
-        host: 'smtp-mail.outlook.com',
+        host: 'smtp.office365.com',
         port: 587,
         secure: false,
         auth: {
-          user: 'alertaelectronica@prodominicana.gob.do', // 👈
-          pass: `#czU/1HHY~<Gr@\\x02u-K-C/K(U`, // 👈
+          user: process.env.SMTP_EMAIL, // 👈
+          pass: process.env.SMTP_PASS, // 👈
         },
       },
       defaults: {
-        from: '"SINIM - NoReply" <alertaelectronica@prodominicana.gob.do>',
+        from: 'ProInteligencia - No Reply <info@prodominicana.gob.do>',
       },
       template: {
         dir: join(__dirname, 'templates'),

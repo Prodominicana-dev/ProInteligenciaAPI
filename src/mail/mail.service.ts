@@ -8,7 +8,7 @@ export class MailService {
   async alertaComercialMail(title, email, name, products, countries) {
     await this.mailerService.sendMail({
       to: email,
-      subject: `SINIM - ${title}`,
+      subject: `ProInteligencia - ${title}`,
       template: './suscription',
       context: {
         name,
@@ -21,7 +21,7 @@ export class MailService {
   async alertaComercialNotifyMail(title, email, name, products, countries) {
     await this.mailerService.sendMail({
       to: email,
-      subject: `SINIM - ${title}`,
+      subject: `ProInteligencia - ${title}`,
       template: './suscriptionAlert',
       context: {
         name,
@@ -34,8 +34,8 @@ export class MailService {
   async alertaIEDMail(title, email, name, categories) {
     await this.mailerService.sendMail({
       to: email,
-      subject: `SINIM - ${title}`,
-      template: './subscriptionAlertaIED',
+      subject: `ProInteligencia - ${title}`,
+      template: './subscriptionSied',
       context: {
         name,
         categories,
@@ -46,8 +46,8 @@ export class MailService {
   async alertaIEDNotifyMail(title, email, name, categories) {
     await this.mailerService.sendMail({
       to: email,
-      subject: `SINIM - ${title}`,
-      template: './subscriptionAlertaIEDAlert',
+      subject: `ProInteligencia - ${title}`,
+      template: './subscriptionSiedAlert',
       context: {
         name,
         categories,
@@ -58,8 +58,8 @@ export class MailService {
   async newAlertaComercialMail(title, type, description, image, email) {
     await this.mailerService.sendMail({
       to: email,
-      subject: `SINIM - Nueva alerta comercial`,
-      template: './alertacomercial',
+      subject: `ProInteligencia - Nueva alerta comercial`,
+      template: './saim',
       context: {
         title,
         type,
@@ -72,8 +72,8 @@ export class MailService {
   async newAlertaIEDMail(title, type, description, image, email) {
     await this.mailerService.sendMail({
       to: email,
-      subject: `SINIM - Nueva alerta de IED`,
-      template: './alertaIED',
+      subject: `ProInteligencia - Nueva alerta de IED`,
+      template: './sied',
       context: {
         title,
         type,

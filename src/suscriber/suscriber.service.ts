@@ -149,20 +149,20 @@ export class SuscriberService {
         name: product.product.name,
       }));
       const title = 'Suscripción a las Alertas Comerciales';
-      // return await this.mailService
-      //   .alertaComercialMail(title, sub.email, sub.name, products, countries)
-      //   .then(async () => {
-      //     const title = 'Nueva Suscripción a las Alertas Comerciales';
-      //     console.log(title, sub.name, products, countries);
-      //     return await this.mailService.alertaComercialNotifyMail(
-      //       title,
-      //       'eliamps07@gmail.com',
-      //       sub.name,
-      //       products,
-      //       countries,
-      //     );
-      //   });
-      return
+      return await this.mailService
+        .alertaComercialMail(title, sub.email, sub.name, products, countries)
+        .then(async () => {
+          const title = 'Nueva Suscripción a las Alertas Comerciales';
+          console.log(title, sub.name, products, countries);
+          return await this.mailService.alertaComercialNotifyMail(
+            title,
+            ['rosaabreu@prodominicana.gob.do', 'andydelrosario@prodominicana.gob.do', 'emilioconde@prodominicana.gob.do'],
+            sub.name,
+            products,
+            countries,
+          );
+        });
+      
     }
 
     // Luego, actualiza el suscriptor y sus relaciones
@@ -203,18 +203,18 @@ export class SuscriberService {
         const title =
           'Actualización de la suscripción a las Alertas Comerciales';
         console.log(title, sub.name, products, countries);
-      //  try {
-      //   return await this.mailService.alertaComercialMail(
-      //     title,
-      //     sub.email,
-      //     sub.name,
-      //     products,
-      //     countries,
-      //   );
-      //  } catch (error) {
-      //   console.log(error)
-      //  }
-        return
+       try {
+        return await this.mailService.alertaComercialMail(
+          title,
+          sub.email,
+          sub.name,
+          products,
+          countries,
+        );
+       } catch (error) {
+        console.log(error)
+       }
+        
       });
   }
 
@@ -241,17 +241,17 @@ export class SuscriberService {
         name: category.category.name,
       }));
       const title = 'Suscripción a las Alertas de IED';
-      // return await this.mailService
-      //   .alertaIEDMail(title, sub.email, sub.name, categories)
-      //   .then(async () => {
-      //     const title = 'Nueva Suscripción a las Alertas de IED';
-      //     return await this.mailService.alertaIEDNotifyMail(
-      //       title,
-      //       'eliamps07@gmail.com',
-      //       sub.name,
-      //       categories,
-      //     );
-      //   });
+      return await this.mailService
+        .alertaIEDMail(title, sub.email, sub.name, categories)
+        .then(async () => {
+          const title = 'Nueva Suscripción a las Alertas de IED';
+          return await this.mailService.alertaIEDNotifyMail(
+            title,
+            ['temistoclesvalera@prodominicana.gob.do'],
+            sub.name,
+            categories,
+          );
+        });
       return
     }
     // Luego, actualiza el suscriptor y sus relaciones
@@ -278,13 +278,13 @@ export class SuscriberService {
           name: category.category.name,
         }));
         const title = 'Actualización de la suscripción a las Alertas de IED';
-        // return await this.mailService.alertaIEDMail(
-        //   title,
-        //   sub.email,
-        //   sub.name,
-        //   categories,
-        // );
-        return
+        return await this.mailService.alertaIEDMail(
+          title,
+          sub.email,
+          sub.name,
+          categories,
+        );
+        
       });
   }
 

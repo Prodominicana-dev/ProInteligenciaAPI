@@ -29,11 +29,12 @@ export class QueueService implements OnModuleInit {
     const sendEmail = async (job: Job) => {
       const { alertacomercial, subscribers } = job.data;
       for (const suscriber of subscribers) {
+        console.log(suscriber)
         await this.mailService.newAlertaComercialMail(
           alertacomercial.title,
           alertacomercial.category.name,
           alertacomercial.description,
-          `https://sinim.prodominicana.gob.do/apiv2/data/alertacomercial/${alertacomercial.id}/img/${alertacomercial.image}`,
+          `https://prointeligencia.prodominicana.gob.do/apiv2/data/alertacomercial/${alertacomercial.id}/img/${alertacomercial.image}`,
           suscriber.email,
         );
       }
