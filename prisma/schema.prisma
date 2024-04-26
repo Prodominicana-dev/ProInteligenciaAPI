@@ -31,7 +31,6 @@ model Country {
   abbreviation String @unique
   continent String?
   group String?
-  image String?
   accesoamercados AccesoaMercados[]
   suscriber_countries SuscriberToCountry[]
 }
