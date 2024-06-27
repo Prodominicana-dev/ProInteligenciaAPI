@@ -9,16 +9,13 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
   imports: [
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.office365.com',
+        host: '10.25.1.68',
         port: 587,
         secure: false,
-        auth: {
-          user: process.env.SMTP_EMAIL, // 👈
-          pass: process.env.SMTP_PASS, // 👈
-        },
+        ignoreTLS: true,
       },
       defaults: {
-        from: 'ProInteligencia - No Reply <info@prodominicana.gob.do>',
+        from: 'ProInteligencia - No Reply <no-reply@prodominicana.gob.do>',
       },
       template: {
         dir: join(__dirname, 'templates'),
