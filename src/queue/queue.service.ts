@@ -23,7 +23,7 @@ export class QueueService implements OnModuleInit {
     @Inject(EMAIL_QUEUE) private emailQueue: Queue,
     @Inject(SIED_QUEUE) private alertaIEDQueue: Queue,
     private mailService: MailService,
-  ) {}
+  ) { }
 
   async onModuleInit(): Promise<void> {
     const sendEmail = async (job: Job) => {
@@ -47,14 +47,20 @@ export class QueueService implements OnModuleInit {
 
     const sendAlertaIEDEmail = async (job: Job) => {
       const { alertaIED, subscribers } = job.data;
-      for (const suscriber of subscribers) {
-        await this.mailService.newAlertaIEDMail(
-          alertaIED.title,
-          alertaIED.category.name,
-          alertaIED.description,
-          `https://sinim.prodominicana.gob.do/apiv2/data/alertaIED/${alertaIED.id}/img/${alertaIED.image}`,
-          suscriber.email,
-        );
+      if (alertaIED.isPublic === true) {
+
+        for (const suscriber of subscribers) {
+          await this.mailService.newAlertaIEDMail(
+            alertaIED.title,
+            alertaIED.category.name,
+            alertaIED.description,
+            `https://sinim.prodominicana.gob.do/apiv2/data/alertaIED/${alertaIED.id}/img/${alertaIED.image}`,
+            suscriber.email,
+          );
+        }
+      } else {
+        console.log('AlertaIED no es público');
+        return; // Salimos del worker para no enviar más alertas públicas
       }
     };
 
