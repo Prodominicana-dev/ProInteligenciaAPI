@@ -47,9 +47,9 @@ export class QueueService implements OnModuleInit {
 
     const sendAlertaIEDEmail = async (job: Job) => {
       const { alertaIED, subscribers } = job.data;
-      if (alertaIED.isPublic === true) {
-
-        for (const suscriber of subscribers) {
+  
+      for (const suscriber of subscribers) {
+        if (alertaIED.isPublic === true) {
           await this.mailService.newAlertaIEDMail(
             alertaIED.title,
             alertaIED.category.name,
@@ -57,12 +57,20 @@ export class QueueService implements OnModuleInit {
             `https://sinim.prodominicana.gob.do/apiv2/data/alertaIED/${alertaIED.id}/img/${alertaIED.image}`,
             suscriber.email,
           );
+        } else if (alertaIED.isPublic === false && suscriber.email.endsWith('@prodominicana.gob.do')) {
+          await this.mailService.newAlertaIEDMail(
+            alertaIED.title,
+            alertaIED.category.name,
+            alertaIED.description,
+            `https://sinim.prodominicana.gob.do/apiv2/data/alertaIED/${alertaIED.id}/img/${alertaIED.image}`,
+            suscriber.email,
+          );
+
         }
-      } else {
-        console.log('AlertaIED no es público');
-        return; // Salimos del worker para no enviar más alertas públicas
-      }
-    };
+      };
+
+    }
+
 
     const alertaIEDWorker = new Worker(
       'alertaIED',
