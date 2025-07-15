@@ -4,24 +4,26 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class DatamarketService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) { }
 
   async getActiveDatamarket(): Promise<Datamarket[]> {
     return this.prismaService.datamarket.findMany({
       where: {
         status: 'active',
       },
-      orderBy: {
-        categoryPriority: 'asc',
-      },
+      orderBy: [
+        { category: 'asc' },
+        { categoryPriority: 'asc' },
+      ],
     });
   }
 
   async getDatamarket(): Promise<Datamarket[]> {
     return this.prismaService.datamarket.findMany({
-      orderBy: {
-        categoryPriority: 'asc',
-      },
+       orderBy: [
+        { category: 'asc' },
+        { categoryPriority: 'asc' },
+      ],
     });
   }
 
@@ -56,6 +58,8 @@ export class DatamarketService {
         where: {
           category: cat.category,
           status: 'active',
+        }, orderBy: {
+          categoryPriority: 'asc',
         },
       });
       const datacat = {
