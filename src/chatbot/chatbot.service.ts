@@ -8,30 +8,92 @@ export class ChatbotService {
     @Inject('DataSource_ceird') private Ceird: DataSource,
   ) {}
 
-  async getIEDByCountry(): Promise<any> {
-    const data = await this.Analytica.query(
-      'SELECT * FROM vw_SEBCRDIEDPorPaisT',
-    );
+  async getIEDByCountry(): Promise<
+    {
+      country: string;
+      year: number;
+      amount: number;
+      title: string;
+      description: string;
+    }[]
+  > {
+    const rawData = await this.Analytica.query(`
+    SELECT * FROM vw_SEBCRDIEDPorPaisT
+    WHERE [US$ Millones] IS NOT NULL
+  `);
 
-    return {
-      title: 'Inversión Extranjera Directa por país de origen',
-      description:
-        'Estos datos muestran la Inversión Extranjera Directa (IED) recibida por la República Dominicana, desglosada por país de origen. Reflejan los montos más actualizados disponibles, proporcionando una visión clara de qué naciones están invirtiendo en el país.',
-      data,
-    };
+    const grouped = new Map<
+      string,
+      { amount: number; country: string; year: number }
+    >();
+
+    for (const item of rawData) {
+      const date = new Date(item['Fecha']);
+      const year = date.getFullYear();
+      const country = item['País'];
+      const amount = Number(item['US$ Millones']);
+
+      const key = `${country}-${year}`;
+
+      if (grouped.has(key)) {
+        grouped.get(key)!.amount += amount;
+      } else {
+        grouped.set(key, { country, year, amount });
+      }
+    }
+
+    return Array.from(grouped.values()).map(({ country, year, amount }) => ({
+      country,
+      year,
+      amount: +amount.toFixed(2),
+      title: `Inversión Extranjera Directa en ${country} - ${year}`,
+      description: `Resumen actualizado de la inversión extranjera directa recibida por ${country} en el año ${year}, expresada en millones de dólares estadounidenses.`,
+    }));
   }
 
-  async getIEDBySector(): Promise<any> {
-    const data = await this.Analytica.query(
-      'SELECT * FROM vw_SEBCRDIEDPorSectorQ',
-    );
+  async getIEDBySector(): Promise<
+    {
+      sector: string;
+      year: number;
+      amount: number;
+      title: string;
+      description: string;
+    }[]
+  > {
+    const rawData = await this.Analytica.query(`
+    SELECT * FROM vw_SEBCRDIEDPorSectorQ
+    WHERE [US$ Millones] IS NOT NULL
+  `);
 
-    return {
-      title: 'Inversión Extranjera Directa por sector económico',
-      description:
-        'Estos datos muestran la Inversión Extranjera Directa (IED) en la República Dominicana, desglosada por sectores económicos. Permiten identificar los sectores que están recibiendo mayor interés y capital extranjero en el país, con cifras actualizadas.',
-      data,
-    };
+    const grouped = new Map<
+      string,
+      { amount: number; sector: string; year: number }
+    >();
+
+    for (const item of rawData) {
+      const date = new Date(item['Fecha']);
+      const year = date.getFullYear();
+      const sector = item['Sector']?.trim();
+      const amount = Number(item['US$ Millones']);
+
+      if (!sector) continue; // Evita registros vacíos
+
+      const key = `${sector}-${year}`;
+
+      if (grouped.has(key)) {
+        grouped.get(key)!.amount += amount;
+      } else {
+        grouped.set(key, { sector, year, amount });
+      }
+    }
+
+    return Array.from(grouped.values()).map(({ sector, year, amount }) => ({
+      sector,
+      year,
+      amount: +amount.toFixed(2),
+      title: `IED en el sector ${sector} - ${year}`,
+      description: `Inversión extranjera directa registrada en el sector ${sector} durante el año ${year}, expresada en millones de dólares estadounidenses.`,
+    }));
   }
 
   async getExportData(): Promise<any> {
