@@ -37,10 +37,19 @@ export class ChatbotService {
       .sort((a, b) => a.year - b.year || a.country.localeCompare(b.country))
       .map(
         ({ country, year, amount }) =>
-          `La inversión extranjera directa desde ${country} en el año ${year} fue de ${amount.toFixed(2)} millones de dólares estadounidenses.`,
-      );
+          `<p>La inversión extranjera directa desde ${country} en el año ${year} fue de ${amount.toFixed(2)} millones de dólares estadounidenses.</p>`,
+      )
+      .join('\n');
 
-    return summaries.join('\n');
+    return `
+    <html>
+      <head><title>IED por País</title></head>
+      <body>
+        <h1>Inversión Extranjera Directa por País</h1>
+        ${summaries}
+      </body>
+    </html>
+  `;
   }
 
   async getIEDBySector(): Promise<string> {
@@ -72,10 +81,19 @@ export class ChatbotService {
       .sort((a, b) => a.year - b.year || a.sector.localeCompare(b.sector))
       .map(
         ({ sector, year, amount }) =>
-          `La inversión extranjera directa en el sector ${sector} en el año ${year} fue de ${amount.toFixed(2)} millones de dólares estadounidenses.`,
-      );
+          `<p>La inversión extranjera directa en el sector ${sector} en el año ${year} fue de ${amount.toFixed(2)} millones de dólares estadounidenses.</p>`,
+      )
+      .join('\n');
 
-    return summaries.join('\n');
+    return `
+    <html>
+      <head><title>IED por Sector</title></head>
+      <body>
+        <h1>Inversión Extranjera Directa por Sector</h1>
+        ${summaries}
+      </body>
+    </html>
+  `;
   }
 
   async getIEDSummaryByYear(): Promise<string> {
@@ -98,10 +116,19 @@ export class ChatbotService {
       .sort(([a], [b]) => a - b)
       .map(
         ([year, amount]) =>
-          `La inversión extranjera directa total en el año ${year} fue de ${amount.toFixed(2)} millones de dólares estadounidenses.`,
-      );
+          `<p>La inversión extranjera directa total en el año ${year} fue de ${amount.toFixed(2)} millones de dólares estadounidenses.</p>`,
+      )
+      .join('\n');
 
-    return summaries.join('\n');
+    return `
+    <html>
+      <head><title>Resumen IED por Año</title></head>
+      <body>
+        <h1>Resumen de Inversión Extranjera Directa por Año</h1>
+        ${summaries}
+      </body>
+    </html>
+  `;
   }
 
   async getExportData(): Promise<any> {

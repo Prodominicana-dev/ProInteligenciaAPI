@@ -9,52 +9,56 @@ export class ChatbotController {
   @Get('ied-by-country')
   async getIEDByCountry(@Res() res: Response) {
     try {
-      const data = await this.chatbotService.getIEDByCountry();
-      return res.status(200).json(data);
+      const html = await this.chatbotService.getIEDByCountry();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
     } catch (error) {
       console.error(error);
       return res
         .status(500)
-        .json({ message: 'Error al obtener datos de IED por país' });
+        .send('<p>Error al obtener datos de IED por país</p>');
     }
   }
 
   @Get('ied-by-sector')
   async getIEDBySector(@Res() res: Response) {
     try {
-      const data = await this.chatbotService.getIEDBySector();
-      return res.status(200).json(data);
+      const html = await this.chatbotService.getIEDBySector();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
     } catch (error) {
       console.error(error);
       return res
         .status(500)
-        .json({ message: 'Error al obtener datos de IED por sector' });
+        .send('<p>Error al obtener datos de IED por sector</p>');
     }
   }
 
   @Get('ied-summary-by-year')
   async getIEDSummaryByYear(@Res() res: Response) {
     try {
-      const data = await this.chatbotService.getIEDSummaryByYear();
-      return res.status(200).json(data);
+      const html = await this.chatbotService.getIEDSummaryByYear();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
     } catch (error) {
       console.error(error);
       return res
         .status(500)
-        .json({ message: 'Error al obtener resumen de IED por año' });
+        .send('<p>Error al obtener resumen de IED por año</p>');
     }
   }
 
   @Get('export-data')
   async getExportData(@Res() res: Response) {
     try {
-      const data = await this.chatbotService.getExportData();
-      return res.status(200).json(data);
+      const html = await this.chatbotService.getExportData();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
     } catch (error) {
       console.error(error);
       return res
         .status(500)
-        .json({ message: 'Error al obtener datos de exportación' });
+        .send('<p>Error al obtener datos de exportación</p>');
     }
   }
 }
