@@ -32,6 +32,19 @@ export class ChatbotController {
     }
   }
 
+  @Get('ied-summary-by-year')
+  async getIEDSummaryByYear(@Res() res: Response) {
+    try {
+      const data = await this.chatbotService.getIEDSummaryByYear();
+      return res.status(200).json(data);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener resumen de IED por año' });
+    }
+  }
+
   @Get('export-data')
   async getExportData(@Res() res: Response) {
     try {
