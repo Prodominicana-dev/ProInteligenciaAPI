@@ -7,15 +7,41 @@ export class ChatbotController {
   constructor(private readonly chatbotService: ChatbotService) {}
 
   @Get('ied-by-country')
-  async getIedByCountry(@Res() res: Response) {
+  async getIEDByCountry(@Res() res: Response) {
     try {
-      const data = await this.chatbotService.getViewData();
+      const data = await this.chatbotService.getIEDByCountry();
       return res.status(200).json(data);
     } catch (error) {
       console.error(error);
       return res
         .status(500)
         .json({ message: 'Error al obtener datos de IED por país' });
+    }
+  }
+
+  @Get('ied-by-sector')
+  async getIEDBySector(@Res() res: Response) {
+    try {
+      const data = await this.chatbotService.getIEDBySector();
+      return res.status(200).json(data);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener datos de IED por sector' });
+    }
+  }
+
+  @Get('export-data')
+  async getExportData(@Res() res: Response) {
+    try {
+      const data = await this.chatbotService.getExportData();
+      return res.status(200).json(data);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener datos de exportación' });
     }
   }
 }
