@@ -18,6 +18,7 @@ import { CategoryModule } from './category/category.module';
 import { PartnerModule } from './partner/partner.module';
 import { PostModule } from './post/post.module';
 import { LogModule } from './log/log.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 
 @Module({
   controllers: [AppController],
@@ -38,6 +39,7 @@ import { LogModule } from './log/log.module';
     PartnerModule,
     PostModule,
     LogModule,
+    ChatbotModule,
   ],
 })
 export class AppModule {}
