@@ -48,10 +48,24 @@ export class ChatbotController {
     }
   }
 
-  @Get('export-data')
-  async getExportData(@Res() res: Response) {
+  @Get('exports-by-product')
+  async getExportsByProduct(@Res() res: Response) {
     try {
-      const html = await this.chatbotService.getExportData();
+      const html = await this.chatbotService.getExportsByProduct();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .send('<p>Error al obtener datos de exportación</p>');
+    }
+  }
+
+  @Get('exports-by-country')
+  async getExportsByCountry(@Res() res: Response) {
+    try {
+      const html = await this.chatbotService.getExportsByCountry();
       res.setHeader('Content-Type', 'text/html');
       return res.status(200).send(html);
     } catch (error) {

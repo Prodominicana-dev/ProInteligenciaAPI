@@ -29,6 +29,7 @@ import { ChatbotController } from './chatbot.controller';
           url: process.env.DATAMARKET_CEIRD_DATABASE_URL,
           entities: [],
           synchronize: false,
+          requestTimeout: 300000, // 5 minutos
           options: {
             encrypt: false,
             trustServerCertificate: true,

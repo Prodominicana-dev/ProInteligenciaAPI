@@ -131,27 +131,91 @@ export class ChatbotService {
   `;
   }
 
-  async getExportData(): Promise<any> {
-    const query = `
-      SELECT *
-      FROM vw_DGANeto
-      WHERE [Régimen Arancelario] IN (
-        '1', '10', '11', '2', '7',
-        'Admisión Temporal',
-        'Consumo de reexportación',
-        'Depósito de reexportación',
-        'nacional',
-        'Zonas Francas'
-      )
-    `;
+  async getExportsByCountry(): Promise<string> {
+    const rawData = await this.Ceird.query(`
+    SELECT * FROM dbo.ChatBot
+    WHERE Total_Valor_FOB IS NOT NULL
+  `);
 
-    const data = await this.Ceird.query(query);
+    // Mapa para agrupar por año y país
+    const grouped = new Map<number, Map<string, number>>();
 
-    return {
-      title: 'Exportaciones nacionales por régimen arancelario',
-      description:
-        'Estos datos muestran el volumen y valor de las exportaciones realizadas desde la República Dominicana, segmentadas por régimen arancelario. Esta información representa las estadísticas más actualizadas sobre el comportamiento exportador del país.',
-      data,
-    };
+    for (const item of rawData) {
+      const year = Number(item['Año']);
+      const country = item['Pais'];
+      const value = Number(item['Total_Valor_FOB']) || 0;
+
+      if (!grouped.has(year)) grouped.set(year, new Map());
+      grouped
+        .get(year)
+        .set(country, (grouped.get(year).get(country) || 0) + value);
+    }
+
+    // Construcción de HTML
+    const summaries: string[] = [];
+    for (const [year, countriesMap] of Array.from(grouped.entries()).sort(
+      ([a], [b]) => a - b,
+    )) {
+      for (const [country, total] of Array.from(
+        countriesMap.entries(),
+      ).sort()) {
+        summaries.push(
+          `<p>Las exportaciones hacia ${country} en el año ${year} fueron de ${total.toFixed(2)} dólares estadounidenses FOB.</p>`,
+        );
+      }
+    }
+
+    return `
+  <html>
+    <head><title>Exportaciones por País</title></head>
+    <body>
+      <h1>Resumen de Exportaciones por País y Año</h1>
+      ${summaries.join('\n')}
+    </body>
+  </html>
+  `;
+  }
+
+  async getExportsByProduct(): Promise<string> {
+    const rawData = await this.Ceird.query(`
+    SELECT * FROM dbo.ChatBot
+    WHERE Total_Valor_FOB IS NOT NULL
+  `);
+
+    // Mapa para agrupar por año y producto
+    const grouped = new Map<number, Map<string, number>>();
+
+    for (const item of rawData) {
+      const year = Number(item['Año']);
+      const product = item['Sub-partida'];
+      const value = Number(item['Total_Valor_FOB']) || 0;
+
+      if (!grouped.has(year)) grouped.set(year, new Map());
+      grouped
+        .get(year)
+        .set(product, (grouped.get(year).get(product) || 0) + value);
+    }
+
+    // Construcción de HTML
+    const summaries: string[] = [];
+    for (const [year, productsMap] of Array.from(grouped.entries()).sort(
+      ([a], [b]) => a - b,
+    )) {
+      for (const [product, total] of Array.from(productsMap.entries()).sort()) {
+        summaries.push(
+          `<p>Las exportaciones del producto "${product}" en el año ${year} fueron de ${total.toFixed(2)} dólares estadounidenses FOB.</p>`,
+        );
+      }
+    }
+
+    return `
+  <html>
+    <head><title>Exportaciones por Producto</title></head>
+    <body>
+      <h1>Resumen de Exportaciones por Producto y Año</h1>
+      ${summaries.join('\n')}
+    </body>
+  </html>
+  `;
   }
 }
