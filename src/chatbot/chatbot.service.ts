@@ -177,10 +177,8 @@ export class ChatbotService {
       const total = Number(item['totalValue']);
       if (total === 0) continue;
 
-      const displayValue =
-        total >= 1000 ? (total / 1000).toFixed(2) + ' K' : total.toFixed(2);
       summaries.push(
-        `<p>Exportaciones ${year}: "${code}" → ${displayValue} USD</p>`,
+        `<p>Exportaciones ${year}: "${code}" → ${formatUSD(total)} USD</p>`,
       );
     }
 
