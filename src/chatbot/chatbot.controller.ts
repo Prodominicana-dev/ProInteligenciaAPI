@@ -48,10 +48,10 @@ export class ChatbotController {
     }
   }
 
-  @Get('exports-by-product')
+  @Get('exports-by-product/:startYear/:endYear')
   async getExportsByProduct(
-    @Query('startYear') startYear: number,
-    @Query('endYear') endYear: number,
+    @Param('startYear') startYear: number,
+    @Param('endYear') endYear: number,
     @Res() res: Response,
   ) {
     try {
