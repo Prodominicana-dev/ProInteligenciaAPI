@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { ChatbotService } from './chatbot.service';
 import { Response } from 'express';
 
@@ -49,9 +49,20 @@ export class ChatbotController {
   }
 
   @Get('exports-by-product')
-  async getExportsByProduct(@Res() res: Response) {
+  async getExportsByProduct(
+    @Query('startYear') startYear: number,
+    @Query('endYear') endYear: number,
+    @Res() res: Response,
+  ) {
     try {
-      const html = await this.chatbotService.getExportsByProduct();
+      if (!startYear || !endYear) {
+        return res.status(400).send('<p>Debe enviar startYear y endYear</p>');
+      }
+
+      const html = await this.chatbotService.getExportsByProduct(
+        startYear,
+        endYear,
+      );
       res.setHeader('Content-Type', 'text/html');
       return res.status(200).send(html);
     } catch (error) {

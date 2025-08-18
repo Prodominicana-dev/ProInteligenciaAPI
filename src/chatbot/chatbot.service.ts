@@ -156,31 +156,25 @@ export class ChatbotService {
   `;
   }
 
-  async getExportsByProduct(): Promise<string> {
+  async getExportsByProduct(
+    startYear: number,
+    endYear: number,
+  ): Promise<string> {
     const rawData = await this.Ceird.query(`
-    SELECT
-      Año,
-      [Sub-partida] AS productCode,
-      SUM(Total_Valor_FOB) AS totalValue
-    FROM dbo.ChatBot
-    WHERE Total_Valor_FOB IS NOT NULL
-      AND [Sub-partida] IS NOT NULL
-      AND [Sub-partida] NOT LIKE '%N/D%'
-    GROUP BY Año, [Sub-partida]
-    ORDER BY Año, [Sub-partida]
-  `);
+  SELECT Año, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total
+  FROM dbo.ChatBot
+  WHERE Total_Valor_FOB IS NOT NULL
+    AND Total_Valor_FOB > 0
+    AND [Sub-partida] NOT LIKE '%N/D%'
+    AND Año BETWEEN ${startYear} AND ${endYear}
+  GROUP BY Año, [Sub-partida]
+  ORDER BY Año, [Sub-partida]
+`);
 
-    const summaries: string[] = [];
-    for (const item of rawData) {
-      const year = item['Año'];
-      const code = item['productCode'];
-      const total = Number(item['totalValue']);
-      if (total === 0) continue;
-
-      summaries.push(
-        `<p>Exportaciones ${year}: "${code}" → ${formatUSD(total)} USD</p>`,
-      );
-    }
+    const summaries = rawData.map(
+      (item) =>
+        `<p>Exportaciones ${item.Año}: "${item.product}" → ${formatUSD(item.total)} USD</p>`,
+    );
 
     return `
     <html>
