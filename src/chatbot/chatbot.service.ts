@@ -173,7 +173,7 @@ export class ChatbotService {
 
     const summaries = rawData.map(
       (item) =>
-        `<p>Exportaciones ${item.Año}: "${item.product}" → ${formatUSD(item.total)} USD</p>`,
+        `<p>Las exportaciones del producto "${item.product}" en el año ${item.Año} fueron de ${formatUSD(item.total)} USD.</p>`,
     );
     const yearTitle =
       startYear === endYear ? `${startYear}` : `${startYear} - ${endYear}`;
@@ -191,8 +191,9 @@ export class ChatbotService {
 }
 
 function formatUSD(value: number): string {
-  if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(2) + ' B';
-  if (value >= 1_000_000) return (value / 1_000_000).toFixed(2) + ' M';
-  if (value >= 1_000) return (value / 1_000).toFixed(2) + ' K';
+  if (value >= 1_000_000_000)
+    return (value / 1_000_000_000).toFixed(2) + ' Billones';
+  if (value >= 1_000_000) return (value / 1_000_000).toFixed(2) + ' Millones';
+  if (value >= 1_000) return (value / 1_000).toFixed(2) + ' Mil';
   return value.toFixed(2);
 }
