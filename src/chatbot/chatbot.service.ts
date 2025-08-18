@@ -175,15 +175,17 @@ export class ChatbotService {
       (item) =>
         `<p>Exportaciones ${item.Año}: "${item.product}" → ${formatUSD(item.total)} USD</p>`,
     );
+    const yearTitle =
+      startYear === endYear ? `${startYear}` : `${startYear} - ${endYear}`;
 
     return `
     <html>
-      <head><title>Exportaciones por Producto</title></head>
-      <body>
-        <h1>Resumen de Exportaciones por Producto y Año</h1>
-        ${summaries.join('\n')}
-      </body>
-    </html>
+  <head><title>Exportaciones por Producto</title></head>
+  <body>
+    <h1>Resumen de Exportaciones por Producto (${yearTitle})</h1>
+    ${summaries.join('\n')}
+  </body>
+</html>
   `;
   }
 }
