@@ -158,17 +158,35 @@ export class ChatbotService {
 
   async getExportsByProduct(): Promise<string> {
     const rawData = await this.Ceird.query(`
-    SELECT Año, [Sub-partida] AS Producto, SUM(Total_Valor_FOB) AS Total
-    FROM dbo.ChatBot
+    SELECT * FROM dbo.ChatBot
     WHERE Total_Valor_FOB IS NOT NULL
-    GROUP BY Año, [Sub-partida]
-    ORDER BY Año, [Sub-partida]
   `);
 
-    const summaries: string[] = rawData.map(
-      (item) =>
-        `<p>Las exportaciones del producto "${item.Producto}" en el año ${item.Año} fueron de ${Number(item.Total).toFixed(2)} dólares estadounidenses FOB.</p>`,
-    );
+    const grouped = new Map<number, Map<string, number>>();
+
+    for (const item of rawData) {
+      const year = Number(item['Año']);
+      const productCode = item['Sub-partida'] || 'N/D';
+      const value = Number(item['Total_Valor_FOB']) || 0;
+
+      if (value === 0 || productCode.toUpperCase().includes('N/D')) continue;
+
+      const label = `${productCode}`;
+
+      if (!grouped.has(year)) grouped.set(year, new Map());
+      grouped.get(year).set(label, (grouped.get(year).get(label) || 0) + value);
+    }
+
+    const summaries: string[] = [];
+    for (const [year, productsMap] of Array.from(grouped.entries()).sort(
+      ([a], [b]) => a - b,
+    )) {
+      for (const [label, total] of Array.from(productsMap.entries()).sort()) {
+        summaries.push(
+          `<p>Exportaciones ${year}: "${label}" → ${formatUSD(total)} USD</p>`,
+        );
+      }
+    }
 
     return `
     <html>
@@ -180,4 +198,11 @@ export class ChatbotService {
     </html>
   `;
   }
+}
+
+function formatUSD(value: number): string {
+  if (value >= 1_000_000_000) return (value / 1_000_000_000).toFixed(2) + ' B';
+  if (value >= 1_000_000) return (value / 1_000_000).toFixed(2) + ' M';
+  if (value >= 1_000) return (value / 1_000).toFixed(2) + ' K';
+  return value.toFixed(2);
 }
