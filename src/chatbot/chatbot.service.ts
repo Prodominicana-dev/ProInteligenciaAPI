@@ -133,89 +133,51 @@ export class ChatbotService {
 
   async getExportsByCountry(): Promise<string> {
     const rawData = await this.Ceird.query(`
-    SELECT * FROM dbo.ChatBot
+    SELECT Año, Pais, SUM(Total_Valor_FOB) AS Total
+    FROM dbo.ChatBot
     WHERE Total_Valor_FOB IS NOT NULL
+    GROUP BY Año, Pais
+    ORDER BY Año, Pais
   `);
 
-    // Mapa para agrupar por año y país
-    const grouped = new Map<number, Map<string, number>>();
-
-    for (const item of rawData) {
-      const year = Number(item['Año']);
-      const country = item['Pais'];
-      const value = Number(item['Total_Valor_FOB']) || 0;
-
-      if (!grouped.has(year)) grouped.set(year, new Map());
-      grouped
-        .get(year)
-        .set(country, (grouped.get(year).get(country) || 0) + value);
-    }
-
-    // Construcción de HTML
-    const summaries: string[] = [];
-    for (const [year, countriesMap] of Array.from(grouped.entries()).sort(
-      ([a], [b]) => a - b,
-    )) {
-      for (const [country, total] of Array.from(
-        countriesMap.entries(),
-      ).sort()) {
-        summaries.push(
-          `<p>Las exportaciones hacia ${country} en el año ${year} fueron de ${total.toFixed(2)} dólares estadounidenses FOB.</p>`,
-        );
-      }
-    }
+    const summaries: string[] = rawData.map(
+      (item) =>
+        `<p>Las exportaciones hacia ${item.Pais} en el año ${item.Año} fueron de ${Number(item.Total).toFixed(2)} dólares estadounidenses FOB.</p>`,
+    );
 
     return `
-  <html>
-    <head><title>Exportaciones por País</title></head>
-    <body>
-      <h1>Resumen de Exportaciones por País y Año</h1>
-      ${summaries.join('\n')}
-    </body>
-  </html>
+    <html>
+      <head><title>Exportaciones por País</title></head>
+      <body>
+        <h1>Resumen de Exportaciones por País y Año</h1>
+        ${summaries.join('\n')}
+      </body>
+    </html>
   `;
   }
 
   async getExportsByProduct(): Promise<string> {
     const rawData = await this.Ceird.query(`
-    SELECT * FROM dbo.ChatBot
+    SELECT Año, [Sub-partida] AS Producto, SUM(Total_Valor_FOB) AS Total
+    FROM dbo.ChatBot
     WHERE Total_Valor_FOB IS NOT NULL
+    GROUP BY Año, [Sub-partida]
+    ORDER BY Año, [Sub-partida]
   `);
 
-    // Mapa para agrupar por año y producto
-    const grouped = new Map<number, Map<string, number>>();
-
-    for (const item of rawData) {
-      const year = Number(item['Año']);
-      const product = item['Sub-partida'];
-      const value = Number(item['Total_Valor_FOB']) || 0;
-
-      if (!grouped.has(year)) grouped.set(year, new Map());
-      grouped
-        .get(year)
-        .set(product, (grouped.get(year).get(product) || 0) + value);
-    }
-
-    // Construcción de HTML
-    const summaries: string[] = [];
-    for (const [year, productsMap] of Array.from(grouped.entries()).sort(
-      ([a], [b]) => a - b,
-    )) {
-      for (const [product, total] of Array.from(productsMap.entries()).sort()) {
-        summaries.push(
-          `<p>Las exportaciones del producto "${product}" en el año ${year} fueron de ${total.toFixed(2)} dólares estadounidenses FOB.</p>`,
-        );
-      }
-    }
+    const summaries: string[] = rawData.map(
+      (item) =>
+        `<p>Las exportaciones del producto "${item.Producto}" en el año ${item.Año} fueron de ${Number(item.Total).toFixed(2)} dólares estadounidenses FOB.</p>`,
+    );
 
     return `
-  <html>
-    <head><title>Exportaciones por Producto</title></head>
-    <body>
-      <h1>Resumen de Exportaciones por Producto y Año</h1>
-      ${summaries.join('\n')}
-    </body>
-  </html>
+    <html>
+      <head><title>Exportaciones por Producto</title></head>
+      <body>
+        <h1>Resumen de Exportaciones por Producto y Año</h1>
+        ${summaries.join('\n')}
+      </body>
+    </html>
   `;
   }
 }
