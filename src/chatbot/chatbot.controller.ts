@@ -4,6 +4,25 @@ import { Response } from 'express';
 
 @Controller('apiv2/chatbot')
 export class ChatbotController {
+  @Get('ied-by-country-filtered')
+  async getIEDByCountryFiltered(
+    @Query('producto') producto: string,
+    @Query('fechaInicio') fechaInicio: string,
+    @Query('fechaFin') fechaFin: string,
+    @Res() res: Response,
+  ) {
+    try {
+      if (!producto || !fechaInicio || !fechaFin) {
+        return res.status(400).send('<p>Debe enviar producto, fechaInicio y fechaFin</p>');
+      }
+      const html = await this.chatbotService.getIEDByCountryFiltered(producto, fechaInicio, fechaFin);
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('<p>Error al obtener datos filtrados</p>');
+    }
+  }
   constructor(private readonly chatbotService: ChatbotService) {}
 
   @Get('last-update-date')
