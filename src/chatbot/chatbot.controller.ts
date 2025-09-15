@@ -6,6 +6,29 @@ import { Response } from 'express';
 export class ChatbotController {
   constructor(private readonly chatbotService: ChatbotService) {}
 
+    @Get('last-update-date')
+  async getLastUpdateDate(@Res() res: Response) {
+    try {
+      const lastUpdate = await this.chatbotService.getLastUpdateDate();
+      if (!lastUpdate) {
+        return res
+          .status(404)
+          .send('<p>No se encontró fecha de actualización</p>');
+      }
+      return res
+        .status(200)
+        .send(
+          `<p>La última actualización de la data fue: ${lastUpdate.toLocaleString()}</p>`,
+        );
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .send('<p>Error al obtener la fecha de actualización</p>');
+    }
+  }
+  // endpoint para obtener la última fecha de actualización de los datos
+
   @Get('ied-by-country')
   async getIEDByCountry(@Res() res: Response) {
     try {
