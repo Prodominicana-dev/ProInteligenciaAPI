@@ -11,19 +11,13 @@ export class DatamarketService {
       where: {
         status: 'active',
       },
-      orderBy: [
-        { category: 'asc' },
-        { categoryPriority: 'asc' },
-      ],
+      orderBy: [{ category: 'asc' }, { categoryPriority: 'asc' }],
     });
   }
 
   async getDatamarket(): Promise<Datamarket[]> {
     return this.prismaService.datamarket.findMany({
-       orderBy: [
-        { category: 'asc' },
-        { categoryPriority: 'asc' },
-      ],
+      orderBy: [{ category: 'asc' }, { categoryPriority: 'asc' }],
     });
   }
 
@@ -85,10 +79,11 @@ export class DatamarketService {
     datamarket: Prisma.DatamarketUpdateInput,
   ): Promise<Datamarket> {
     return this.prismaService.datamarket.update({
-      where: {
-        id,
+      where: { id },
+      data: {
+        ...datamarket,
+        date: new Date(), // Actualiza la fecha al momento de la edicións
       },
-      data: datamarket,
     });
   }
 
