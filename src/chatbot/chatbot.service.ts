@@ -8,6 +8,15 @@ export class ChatbotService {
     @Inject('DataSource_ceird') private Ceird: DataSource,
   ) {}
 
+  async getLastUpdateDate(): Promise<Date | null> {
+    const result = await this.Analytica.query(`
+        SELECT MAX([Fecha]) as lastUpdate FROM vw_SEBCRDIEDPorPaisT
+        WHERE [US$ Millones] IS NOT NULL
+      `);
+    return result[0]?.lastUpdate ? new Date(result[0].lastUpdate) : null;
+  }
+  // endpoint para que el chatbot obtenga la última fecha de actualización de los datos
+
   async getIEDByCountry(): Promise<string> {
     const rawData = await this.Analytica.query(`
     SELECT * FROM vw_SEBCRDIEDPorPaisT
