@@ -3,6 +3,13 @@ import { DataSource } from 'typeorm';
 
 @Injectable()
 export class ChatbotService {
+  /**
+   * Obtiene la inversión extranjera directa (IED) por país filtrada por producto y rango de fechas.
+   * @param producto Nombre del producto a filtrar.
+   * @param fechaInicio Fecha de inicio (formato YYYY-MM-DD).
+   * @param fechaFin Fecha de fin (formato YYYY-MM-DD).
+   * @returns HTML con el resumen de IED por país y año.
+   */
   async getIEDByCountryFiltered(producto: string, fechaInicio: string, fechaFin: string): Promise<string> {
     const rawData = await this.Analytica.query(`
       SELECT * FROM vw_SEBCRDIEDPorPaisT
@@ -55,6 +62,10 @@ export class ChatbotService {
     @Inject('DataSource_ceird') private Ceird: DataSource,
   ) {}
 
+  /**
+   * Obtiene la última fecha de actualización de los datos de IED.
+   * @returns Fecha de la última actualización o null si no hay datos.
+   */
   async getLastUpdateDate(): Promise<Date | null> {
     const result = await this.Analytica.query(`
         SELECT MAX([Fecha]) as lastUpdate FROM vw_SEBCRDIEDPorPaisT
@@ -64,6 +75,10 @@ export class ChatbotService {
   }
   // endpoint para que el chatbot obtenga la última fecha de actualización de los datos
 
+  /**
+   * Obtiene la inversión extranjera directa (IED) agrupada por país y año.
+   * @returns HTML con el resumen de IED por país y año.
+   */
   async getIEDByCountry(): Promise<string> {
     const rawData = await this.Analytica.query(`
     SELECT * FROM vw_SEBCRDIEDPorPaisT
@@ -108,6 +123,10 @@ export class ChatbotService {
   `;
   }
 
+  /**
+   * Obtiene la inversión extranjera directa (IED) agrupada por sector y año.
+   * @returns HTML con el resumen de IED por sector y año.
+   */
   async getIEDBySector(): Promise<string> {
     const rawData = await this.Analytica.query(`
     SELECT * FROM vw_SEBCRDIEDPorSectorQ
@@ -152,6 +171,10 @@ export class ChatbotService {
   `;
   }
 
+  /**
+   * Obtiene el resumen total de inversión extranjera directa (IED) por año.
+   * @returns HTML con el resumen de IED total por año.
+   */
   async getIEDSummaryByYear(): Promise<string> {
     const rawData = await this.Analytica.query(`
     SELECT * FROM vw_SEBCRDIEDPorPaisT
@@ -187,6 +210,10 @@ export class ChatbotService {
   `;
   }
 
+  /**
+   * Obtiene el resumen de exportaciones agrupadas por país y año.
+   * @returns HTML con el resumen de exportaciones por país y año.
+   */
   async getExportsByCountry(): Promise<string> {
     const rawData = await this.Ceird.query(`
     SELECT Año, Pais, SUM(Total_Valor_FOB) AS Total
@@ -212,6 +239,12 @@ export class ChatbotService {
   `;
   }
 
+  /**
+   * Obtiene el resumen de exportaciones agrupadas por producto y año, en un rango de años.
+   * @param startYear Año inicial del rango.
+   * @param endYear Año final del rango.
+   * @returns HTML con el resumen de exportaciones por producto y año.
+   */
   async getExportsByProduct(
     startYear: number,
     endYear: number,
