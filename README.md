@@ -47,34 +47,6 @@ $ npm run start:prod
 - `GET /apiv2/chatbot/last-update-date` — Última fecha de actualización de la data
 - `GET /apiv2/chatbot/ied-by-country-filtered?producto=PRODUCTO&fechaInicio=YYYY-MM-DD&fechaFin=YYYY-MM-DD` — IED por país filtrado por producto y fechas
 
-### Nuevos endpoints y mejoras
-
-- `GET /apiv2/chatbot/exports-by-product-country?product=PRODUCTO[&page=1&pageSize=20][&country=PAIS][&year=YYYY]`
-	- Exportaciones de un producto específico agrupadas por país y año, con paginación y filtros opcionales.
-	- Respuesta:
-		```json
-		{
-			"data": [
-				{ "country": "Estados Unidos", "year": 2022, "total": 12345.67, "date": "2022-12-31", "product": "PRODUCTO" },
-				// ...
-			],
-			"total": 100
-		}
-		```
-
-- Paginación disponible en:
-	- `/apiv2/chatbot/ied-by-country?page=1&pageSize=20`
-	- `/apiv2/chatbot/exports-by-country?page=1&pageSize=20`
-	- `/apiv2/chatbot/exports-by-product-country?page=1&pageSize=20`
-	- Respuesta incluye los campos `data` (array paginado) y `total` (total de registros).
-
-- Filtros opcionales:
-	- En `/apiv2/chatbot/exports-by-product-country` puedes filtrar por `country` y/o `year` además de paginación.
-
-### Mejoras estructurales
-- Todos los endpoints relevantes retornan datos en formato JSON estructurado, facilitando el consumo por agentes de IA y sistemas externos.
-- El controlador delega la lógica de negocio y filtrado al servicio, siguiendo buenas prácticas de separación de responsabilidades.
-
 
 ## Test
 
@@ -131,14 +103,16 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## Stay in touch
 
-- Author - Equipo de Desarollo de ProDominicana
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
 - Website - [https://nestjs.com](https://nestjs.com/)
 - Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-
+# <p align="center">
+	<a href="https://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
 <p align="center">A progressive Node.js framework for building efficient and scalable server-side applications.</p>
 
