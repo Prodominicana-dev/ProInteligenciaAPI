@@ -46,34 +46,11 @@ $ npm run start:prod
 - `GET /apiv2/chatbot/exports-by-product/:startYear/:endYear` — Exportaciones por producto y rango de años
 - `GET /apiv2/chatbot/last-update-date` — Última fecha de actualización de la data
 - `GET /apiv2/chatbot/ied-by-country-filtered?producto=PRODUCTO&fechaInicio=YYYY-MM-DD&fechaFin=YYYY-MM-DD` — IED por país filtrado por producto y fechas
+  
+### Notas sobre formato de respuesta
 
-### Nuevos endpoints y mejoras
-
-- `GET /apiv2/chatbot/exports-by-product-country?product=PRODUCTO[&page=1&pageSize=20][&country=PAIS][&year=YYYY]`
-	- Exportaciones de un producto específico agrupadas por país y año, con paginación y filtros opcionales.
-	- Respuesta:
-		```json
-		{
-			"data": [
-				{ "country": "Estados Unidos", "year": 2022, "total": 12345.67, "date": "2022-12-31", "product": "PRODUCTO" },
-				// ...
-			],
-			"total": 100
-		}
-		```
-
-- Paginación disponible en:
-	- `/apiv2/chatbot/ied-by-country?page=1&pageSize=20`
-	- `/apiv2/chatbot/exports-by-country?page=1&pageSize=20`
-	- `/apiv2/chatbot/exports-by-product-country?page=1&pageSize=20`
-	- Respuesta incluye los campos `data` (array paginado) y `total` (total de registros).
-
-- Filtros opcionales:
-	- En `/apiv2/chatbot/exports-by-product-country` puedes filtrar por `country` y/o `year` además de paginación.
-
-### Mejoras estructurales
-- Todos los endpoints relevantes retornan datos en formato JSON estructurado, facilitando el consumo por agentes de IA y sistemas externos.
-- El controlador delega la lógica de negocio y filtrado al servicio, siguiendo buenas prácticas de separación de responsabilidades.
+- Todos los endpoints principales retornan la información en formato HTML, lista para ser procesada por sistemas que requieran este formato (por ejemplo, agentes de IA que no soportan JSON).
+- La estructura de los datos se presenta como resúmenes y listados en HTML, no como objetos JSON.
 
 
 ## Test

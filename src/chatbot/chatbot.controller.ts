@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query, Res } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res, Post, Body } from '@nestjs/common';
 import { ChatbotService } from './chatbot.service';
 import { Response } from 'express';
 
@@ -11,19 +11,19 @@ export class ChatbotController {
    */
   @Get('exports-by-product-country')
   async getExportsByProductCountry(
+    @Res() res: Response,
     @Query('product') product: string,
-    @Query('page') page?: number,
-    @Query('pageSize') pageSize?: number,
     @Query('country') country?: string,
-    @Query('year') year?: number
+    @Query('year') year?: string,
   ) {
+    console.log('Petición recibida: /apiv2/chatbot/exports-by-product-country', { product, country, year });
     if (!product) {
-      return { error: 'Debe enviar el parámetro product' };
+      return res.status(400).send('<p>Debe enviar el parámetro product</p>');
     }
-    // Validación básica de paginación
-    const pageNum = page && page > 0 ? page : undefined;
-    const pageSizeNum = pageSize && pageSize > 0 ? pageSize : undefined;
-    return await this.chatbotService.getExportsByProductCountry(product, pageNum, pageSizeNum, country, year);
+    const yearNum = year ? Number(year) : undefined;
+    const html = await this.chatbotService.getExportsByProductCountry(product, country, yearNum);
+    res.setHeader('Content-Type', 'text/html');
+    return res.status(200).send(html);
   }
   /**
    * Endpoint para obtener la IED por país filtrada por producto y rango de fechas.
@@ -34,14 +34,18 @@ export class ChatbotController {
    */
   @Get('ied-by-country-filtered')
   async getIEDByCountryFiltered(
+    @Res() res: Response,
     @Query('producto') producto: string,
     @Query('fechaInicio') fechaInicio: string,
     @Query('fechaFin') fechaFin: string,
   ) {
+    console.log('Petición recibida: /apiv2/chatbot/ied-by-country-filtered', { producto, fechaInicio, fechaFin });
     if (!producto || !fechaInicio || !fechaFin) {
-      return { error: 'Debe enviar producto, fechaInicio y fechaFin' };
+      return res.status(400).send('<p>Debe enviar producto, fechaInicio y fechaFin</p>');
     }
-    return await this.chatbotService.getIEDByCountryFiltered(producto, fechaInicio, fechaFin);
+    const html = await this.chatbotService.getIEDByCountryFiltered(producto, fechaInicio, fechaFin);
+    res.setHeader('Content-Type', 'text/html');
+    return res.status(200).send(html);
   }
   constructor(private readonly chatbotService: ChatbotService) {}
 
@@ -77,13 +81,15 @@ export class ChatbotController {
    * @returns HTML con el resumen de IED por país y año.
    */
   @Get('ied-by-country')
-  async getIEDByCountry(
-    @Query('page') page?: number,
-    @Query('pageSize') pageSize?: number
-  ) {
-    const pageNum = page && page > 0 ? page : undefined;
-    const pageSizeNum = pageSize && pageSize > 0 ? pageSize : undefined;
-    return await this.chatbotService.getIEDByCountry(pageNum, pageSizeNum);
+  async getIEDByCountry(@Res() res: Response) {
+    try {
+      const html = await this.chatbotService.getIEDByCountry();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('<p>Error al obtener datos de IED por país</p>');
+    }
   }
 
   /**
@@ -126,12 +132,39 @@ export class ChatbotController {
    * @returns HTML con el resumen de exportaciones por país y año.
    */
   @Get('exports-by-country')
-  async getExportsByCountry(
-    @Query('page') page?: number,
-    @Query('pageSize') pageSize?: number
+  async getExportsByCountry(@Res() res: Response) {
+    try {
+      const html = await this.chatbotService.getExportsByCountry();
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('<p>Error al obtener datos de exportación</p>');
+    }
+  }
+
+  /**
+   * Endpoint para consultar datos de un archivo Excel en SharePoint.
+   * @body fileUrl URL del archivo Excel en SharePoint.
+   * @body filter Filtro opcional para la consulta.
+   * @returns HTML con los datos consultados.
+   */
+  @Post('sharepoint-excel')
+  async getSharepointExcelData(
+    @Res() res: Response,
+    @Body('fileUrl') fileUrl: string,
+    @Body('filter') filter?: string,
   ) {
-    const pageNum = page && page > 0 ? page : undefined;
-    const pageSizeNum = pageSize && pageSize > 0 ? pageSize : undefined;
-    return await this.chatbotService.getExportsByCountry(pageNum, pageSizeNum);
+    if (!fileUrl) {
+      return res.status(400).send('<p>Debe enviar el parámetro fileUrl</p>');
+    }
+    try {
+      const html = await this.chatbotService.getSharepointExcelData(fileUrl, filter);
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('<p>Error al consultar datos de SharePoint Excel</p>');
+    }
   }
 }
