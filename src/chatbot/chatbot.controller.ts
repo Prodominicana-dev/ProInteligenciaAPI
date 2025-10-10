@@ -106,7 +106,7 @@ export class ChatbotController {
    * @returns HTML con el resumen de IED total por año.
    */
   @Get('ied-summary-by-year')
-  async getIEDSummaryByYear() {
+  async getIEDSummaryByYear() : Promise<string> {
     return await this.chatbotService.getIEDSummaryByYear();
   }
 

@@ -215,7 +215,7 @@ export class ChatbotService {
    * Obtiene la inversión extranjera directa (IED) agrupada por sector y año.
    * @returns HTML con el resumen de IED por sector y año.
    */
-  async getIEDBySector(): Promise<Array<{ sector: string; year: number; amount: number; date: string }>> {
+  async getIEDBySector(): Promise<string> {
     const rawData = await this.Analytica.query(`
       SELECT * FROM vw_SEBCRDIEDPorSectorQ
       WHERE [US$ Millones] IS NOT NULL
@@ -238,35 +238,23 @@ export class ChatbotService {
       }
     }
 
-    return Array.from(grouped.values()).sort((a, b) => a.year - b.year || a.sector.localeCompare(b.sector));
-  }
+    const summaries = Array.from(grouped.values())
+      .sort((a, b) => a.year - b.year || a.sector.localeCompare(b.sector))
+      .map(
+        ({ sector, year, amount, date }) =>
+          `<p>En el año ${year}, el sector ${sector} recibió ${amount.toFixed(2)} millones de dólares de inversión extranjera directa. (Fecha: ${date})</p>`
+      )
+      .join('\n');
 
-  /**
-   * Obtiene el resumen total de inversión extranjera directa (IED) por año.
-   * @returns HTML con el resumen de IED total por año.
-   */
-  async getIEDSummaryByYear(): Promise<Array<{ year: number; amount: number; date: string }>> {
-    const rawData = await this.Analytica.query(`
-      SELECT * FROM vw_SEBCRDIEDPorPaisT
-      WHERE [US$ Millones] IS NOT NULL
-    `);
-
-    const grouped = new Map<number, { amount: number; year: number; date: string }>();
-
-    for (const item of rawData) {
-      const dateObj = new Date(item['Fecha']);
-      const year = dateObj.getFullYear();
-      const amount = Number(item['US$ Millones']);
-      const date = dateObj.toISOString().split('T')[0];
-
-      if (grouped.has(year)) {
-        grouped.get(year)!.amount += amount;
-      } else {
-        grouped.set(year, { year, amount, date });
-      }
-    }
-
-    return Array.from(grouped.values()).sort((a, b) => a.year - b.year);
+    return `
+    <html>
+      <head><title>IED por Sector y Año</title></head>
+      <body>
+        <h1>Resumen de IED por Sector y Año</h1>
+        ${summaries}
+      </body>
+    </html>
+    `;
   }
 
   /**
@@ -307,7 +295,7 @@ export class ChatbotService {
   async getExportsByProduct(
     startYear: number,
     endYear: number,
-  ): Promise<Array<{ product: string; year: number; total: number; date: string }>> {
+  ): Promise<string> {
     const rawData = await this.Ceird.query(`
       SELECT Año, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total, MAX(Fecha) as Fecha
       FROM dbo.ChatBot
@@ -319,12 +307,19 @@ export class ChatbotService {
       ORDER BY Año, [Sub-partida]
     `);
 
-    return rawData.map((item: any) => ({
-      product: item.product,
-      year: item.Año,
-      total: Number(item.total),
-      date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
-    }));
+    const summaries: string[] = rawData.map((item: any) =>
+      `<p>En el año ${item.Año}, el producto ${item.product} tuvo exportaciones por ${Number(item.total).toFixed(2)} dólares estadounidenses FOB. (Fecha: ${item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : 'N/A'})</p>`
+    );
+
+    return `
+    <html>
+      <head><title>Exportaciones por Producto y Año</title></head>
+      <body>
+        <h1>Resumen de Exportaciones por Producto y Año</h1>
+        ${summaries.join('\n')}
+      </body>
+    </html>
+    `;
   }
 
   /**
@@ -364,6 +359,50 @@ export class ChatbotService {
     html += '</table>';
 
     return html;
+  }
+
+  /**
+   * Obtiene el resumen total de inversión extranjera directa (IED) por año.
+   * @returns HTML con el resumen de IED total por año.
+   */
+  async getIEDSummaryByYear(): Promise<string> {
+    const rawData = await this.Analytica.query(`
+      SELECT * FROM vw_SEBCRDIEDPorPaisT
+      WHERE [US$ Millones] IS NOT NULL
+    `);
+
+    const grouped = new Map<number, { amount: number; year: number; date: string }>();
+
+    for (const item of rawData) {
+      const dateObj = new Date(item['Fecha']);
+      const year = dateObj.getFullYear();
+      const amount = Number(item['US$ Millones']);
+      const date = dateObj.toISOString().split('T')[0];
+
+      if (grouped.has(year)) {
+        grouped.get(year)!.amount += amount;
+      } else {
+        grouped.set(year, { year, amount, date });
+      }
+    }
+
+    const summaries = Array.from(grouped.values())
+      .sort((a, b) => a.year - b.year)
+      .map(
+        ({ year, amount, date }) =>
+          `<p>En el año ${year} la inversión extranjera directa total fue de ${amount.toFixed(2)} millones de dólares estadounidenses. (Fecha de referencia: ${date})</p>`
+      )
+      .join('\n');
+
+    return `
+    <html>
+      <head><title>IED Total por Año</title></head>
+      <body>
+        <h1>Resumen de IED Total por Año</h1>
+        ${summaries}
+      </body>
+    </html>
+    `;
   }
 }
 
