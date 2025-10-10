@@ -167,4 +167,29 @@ export class ChatbotController {
       return res.status(500).send('<p>Error al consultar datos de SharePoint Excel</p>');
     }
   }
+
+  /**
+   * Endpoint para consultar datos de un archivo Excel en SharePoint (GET).
+   * @query fileUrl URL del archivo Excel en SharePoint.
+   * @query filter Filtro opcional para la consulta.
+   * @returns HTML con los datos consultados.
+   */
+  @Get('sharepoint-excel')
+  async getSharepointExcelDataGet(
+    @Res() res: Response,
+    @Query('fileUrl') fileUrl: string,
+    @Query('filter') filter?: string,
+  ) {
+    if (!fileUrl) {
+      return res.status(400).send('<p>Debe enviar el parámetro fileUrl</p>');
+    }
+    try {
+      const html = await this.chatbotService.getSharepointExcelData(fileUrl, filter);
+      res.setHeader('Content-Type', 'text/html');
+      return res.status(200).send(html);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('<p>Error al consultar datos de SharePoint Excel</p>');
+    }
+  }
 }
