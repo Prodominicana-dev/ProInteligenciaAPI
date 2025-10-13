@@ -244,23 +244,27 @@ export class ChatbotService {
     startYear: number,
     endYear: number,
   ): Promise<Array<{ product: string; year: number; total: number; date: string }>> {
-    const rawData = await this.Ceird.query(`
-      SELECT Año, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total, MAX(Fecha) as Fecha
-      FROM dbo.ChatBot
-      WHERE Total_Valor_FOB IS NOT NULL
-        AND Total_Valor_FOB > 0
-        AND [Sub-partida] NOT LIKE '%N/D%'
-        AND Año BETWEEN ${startYear} AND ${endYear}
-      GROUP BY Año, [Sub-partida]
-      ORDER BY Año, [Sub-partida]
-    `);
-
-    return rawData.map((item: any) => ({
-      product: item.product,
-      year: item.Año,
-      total: Number(item.total),
-      date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
-    }));
+    try {
+      const rawData = await this.Ceird.query(`
+        SELECT Año, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total, MAX(Fecha) as Fecha
+        FROM dbo.ChatBot
+        WHERE Total_Valor_FOB IS NOT NULL
+          AND Total_Valor_FOB > 0
+          AND [Sub-partida] NOT LIKE '%N/D%'
+          AND Año BETWEEN ${startYear} AND ${endYear}
+        GROUP BY Año, [Sub-partida]
+        ORDER BY Año, [Sub-partida]
+      `);
+      return rawData.map((item: any) => ({
+        product: item.product,
+        year: item.Año,
+        total: Number(item.total),
+        date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
+      }));
+    } catch (error) {
+      console.error('Error en getExportsByProduct:', error);
+      throw error;
+    }
   }
 }
 

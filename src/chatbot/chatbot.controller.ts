@@ -20,7 +20,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getExportsByProductCountry(product, pageNum, pageSizeNum, country, year);
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-EXPORTS-BY-PRODUCT-COUNTRY:', error);
       return res.status(500).json({ message: 'Error al obtener exportaciones por producto y país' });
     }
   }
@@ -40,7 +40,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getIEDByCountryFiltered(producto, fechaInicio, fechaFin);
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-IED-BY-COUNTRY-FILTERED:', error);
       return res.status(500).json({ message: 'Error al obtener IED por país filtrada' });
     }
   }
@@ -59,7 +59,7 @@ export class ChatbotController {
       }
       return res.status(200).json({ lastUpdate: lastUpdate.toLocaleString() });
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-LAST-UPDATE-DATE:', error);
       return res.status(500).json({ message: 'Error al obtener la fecha de actualización' });
     }
   }
@@ -77,7 +77,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getIEDByCountry(pageNum, pageSizeNum);
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-IED-BY-COUNTRY:', error);
       return res.status(500).json({ message: 'Error al obtener IED por país' });
     }
   }
@@ -92,7 +92,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getIEDBySector();
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-IED-BY-SECTOR:', error);
       return res.status(500).json({ message: 'Error al obtener IED por sector' });
     }
   }
@@ -107,7 +107,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getIEDSummaryByYear();
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-IED-SUMMARY-BY-YEAR:', error);
       return res.status(500).json({ message: 'Error al obtener resumen de IED por año' });
     }
   }
@@ -127,7 +127,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getExportsByProduct(startYear, endYear);
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-EXPORTS-BY-PRODUCT:', error);
       return res.status(500).json({ message: 'Error al obtener exportaciones por producto y año' });
     }
   }
@@ -144,7 +144,7 @@ export class ChatbotController {
       const data = await this.chatbotService.getExportsByCountry(pageNum, pageSizeNum);
       return res.status(200).json(data);
     } catch (error) {
-      console.error(error);
+      console.log('ERROR-EXPORTS-BY-COUNTRY:', error);
       return res.status(500).json({ message: 'Error al obtener exportaciones por país y año' });
     }
   }
