@@ -43,4 +43,4 @@ import { ChatbotController } from './chatbot.controller';
   controllers: [ChatbotController],
   exports: [ChatbotService],
 })
-export class ChatbotModule { }
+export class ChatbotModule {}
