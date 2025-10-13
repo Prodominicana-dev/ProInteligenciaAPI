@@ -241,23 +241,28 @@ export class ChatbotService {
    * @returns HTML con el resumen de exportaciones por producto y año.
    */
   async getExportsByProduct(
-    startYear: number,
-    endYear: number,
-  ): Promise<Array<{ product: string; year: number; total: number; date: string }>> {
+    startDate: string,
+    endDate: string,
+  ): Promise<Array<{ country: string; total: number; date: string }>> {
     try {
+      let endDateSQL = endDate;
+      const currentYear = new Date().getFullYear();
+      if (endDate.startsWith(currentYear.toString())) {
+        endDateSQL = 'GETDATE()';
+      } else {
+        endDateSQL = `'${endDate}'`;
+      }
       const rawData = await this.Ceird.query(`
-        SELECT Año, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total, MAX(Fecha) as Fecha
-        FROM dbo.ChatBot
-        WHERE Total_Valor_FOB IS NOT NULL
-          AND Total_Valor_FOB > 0
-          AND [Sub-partida] NOT LIKE '%N/D%'
-          AND Año BETWEEN ${startYear} AND ${endYear}
-        GROUP BY Año, [Sub-partida]
-        ORDER BY Año, [Sub-partida]
+        SELECT [Fecha], [País], SUM([US$ Millones]) AS total
+        FROM vw_SEBCRDIEDPorPaisT
+        WHERE [US$ Millones] IS NOT NULL
+          AND [US$ Millones] > 0
+          AND [Fecha] BETWEEN '${startDate}' AND ${endDateSQL}
+        GROUP BY [Fecha], [País]
+        ORDER BY [Fecha], [País]
       `);
       return rawData.map((item: any) => ({
-        product: item.product,
-        year: item.Año,
+        country: item['País'],
         total: Number(item.total),
         date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
       }));
