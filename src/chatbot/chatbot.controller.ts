@@ -10,18 +10,37 @@ export class ChatbotController {
    * @returns Array de objetos con país, año, monto, fecha y producto.
    */
   @Get('exports-by-product-country')
-  async getExportsByProductCountry(@Res() res: Response, @Query('product') product: string, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string, @Query('year') year?: number) {
+  async getExportsByProductCountry(
+    @Res() res: Response,
+    @Query('product') product: string,
+    @Query('page') page?: number,
+    @Query('pageSize') pageSize?: number,
+    @Query('country') country?: string,
+    @Query('year') year?: number,
+  ) {
     try {
       if (!product) {
-        return res.status(400).json({ error: 'Debe enviar el parámetro product' });
+        return res
+          .status(400)
+          .json({ error: 'Debe enviar el parámetro product' });
       }
       const pageNum = page && page > 0 ? page : undefined;
       const pageSizeNum = pageSize && pageSize > 0 ? pageSize : undefined;
-      const data = await this.chatbotService.getExportsByProductCountry(product, pageNum, pageSizeNum, country, year);
+      const data = await this.chatbotService.getExportsByProductCountry(
+        product,
+        pageNum,
+        pageSizeNum,
+        country,
+        year,
+      );
       return res.status(200).json(data);
     } catch (error) {
       console.log('ERROR-EXPORTS-BY-PRODUCT-COUNTRY:', error);
-      return res.status(500).json({ message: 'Error al obtener exportaciones por producto y país' });
+      return res
+        .status(500)
+        .json({
+          message: 'Error al obtener exportaciones por producto y país',
+        });
     }
   }
   /**
@@ -32,16 +51,29 @@ export class ChatbotController {
    * @returns HTML con el resumen de IED por país y año.
    */
   @Get('ied-by-country-filtered')
-  async getIEDByCountryFiltered(@Res() res: Response, @Query('producto') producto: string, @Query('fechaInicio') fechaInicio: string, @Query('fechaFin') fechaFin: string) {
+  async getIEDByCountryFiltered(
+    @Res() res: Response,
+    @Query('producto') producto: string,
+    @Query('fechaInicio') fechaInicio: string,
+    @Query('fechaFin') fechaFin: string,
+  ) {
     try {
       if (!producto || !fechaInicio || !fechaFin) {
-        return res.status(400).json({ error: 'Debe enviar producto, fechaInicio y fechaFin' });
+        return res
+          .status(400)
+          .json({ error: 'Debe enviar producto, fechaInicio y fechaFin' });
       }
-      const data = await this.chatbotService.getIEDByCountryFiltered(producto, fechaInicio, fechaFin);
+      const data = await this.chatbotService.getIEDByCountryFiltered(
+        producto,
+        fechaInicio,
+        fechaFin,
+      );
       return res.status(200).json(data);
     } catch (error) {
       console.log('ERROR-IED-BY-COUNTRY-FILTERED:', error);
-      return res.status(500).json({ message: 'Error al obtener IED por país filtrada' });
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener IED por país filtrada' });
     }
   }
   constructor(private readonly chatbotService: ChatbotService) {}
@@ -55,12 +87,16 @@ export class ChatbotController {
     try {
       const lastUpdate = await this.chatbotService.getLastUpdateDate();
       if (!lastUpdate) {
-        return res.status(404).json({ message: 'No se encontró fecha de actualización' });
+        return res
+          .status(404)
+          .json({ message: 'No se encontró fecha de actualización' });
       }
       return res.status(200).json({ lastUpdate: lastUpdate.toLocaleString() });
     } catch (error) {
       console.log('ERROR-LAST-UPDATE-DATE:', error);
-      return res.status(500).json({ message: 'Error al obtener la fecha de actualización' });
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener la fecha de actualización' });
     }
   }
   // endpoint para obtener la última fecha de actualización de los datos
@@ -70,11 +106,18 @@ export class ChatbotController {
    * @returns HTML con el resumen de IED por país y año.
    */
   @Get('ied-by-country')
-  async getIEDByCountry(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+  async getIEDByCountry(
+    @Res() res: Response,
+    @Query('page') page?: number,
+    @Query('pageSize') pageSize?: number,
+  ) {
     try {
       const pageNum = page && page > 0 ? page : undefined;
       const pageSizeNum = pageSize && pageSize > 0 ? pageSize : undefined;
-      const data = await this.chatbotService.getIEDByCountry(pageNum, pageSizeNum);
+      const data = await this.chatbotService.getIEDByCountry(
+        pageNum,
+        pageSizeNum,
+      );
       return res.status(200).json(data);
     } catch (error) {
       console.log('ERROR-IED-BY-COUNTRY:', error);
@@ -93,7 +136,9 @@ export class ChatbotController {
       return res.status(200).json(data);
     } catch (error) {
       console.log('ERROR-IED-BY-SECTOR:', error);
-      return res.status(500).json({ message: 'Error al obtener IED por sector' });
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener IED por sector' });
     }
   }
 
@@ -108,7 +153,9 @@ export class ChatbotController {
       return res.status(200).json(data);
     } catch (error) {
       console.log('ERROR-IED-SUMMARY-BY-YEAR:', error);
-      return res.status(500).json({ message: 'Error al obtener resumen de IED por año' });
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener resumen de IED por año' });
     }
   }
 
@@ -119,34 +166,52 @@ export class ChatbotController {
    * @returns HTML con el resumen de exportaciones por producto y año.
    */
   @Get('exports-by-product/:startDate/:endDate')
-async getExportsByProduct(
-  @Res() res: Response,
-  @Param('startDate') startDate: string,
-  @Param('endDate') endDate: string
-) {
-  try {
-    const data = await this.chatbotService.getExportsByProduct(startDate, endDate);
-    return res.status(200).json(data);
-  } catch (error) {
-    console.log('ERROR-EXPORTS-BY-PRODUCT:', error);
-    return res.status(500).json({ message: 'Error al obtener exportaciones por producto y fecha' });
+  async getExportsByProduct(
+    @Res() res: Response,
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+  ) {
+    try {
+      const data = await this.chatbotService.getExportsByProduct(
+        startDate,
+        endDate,
+      );
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-BY-PRODUCT:', error);
+      console.log('ERROR-DETAIL:', error?.message || error);
+      return res
+        .status(500)
+        .json({
+          message: 'Error al obtener exportaciones por producto y fecha',
+          error: error?.message || error
+        });
+    }
   }
-}
 
   /**
    * Endpoint para obtener el resumen de exportaciones por país y año.
    * @returns HTML con el resumen de exportaciones por país y año.
    */
   @Get('exports-by-country')
-  async getExportsByCountry(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+  async getExportsByCountry(
+    @Res() res: Response,
+    @Query('page') page?: number,
+    @Query('pageSize') pageSize?: number,
+  ) {
     try {
       const pageNum = page && page > 0 ? page : undefined;
       const pageSizeNum = pageSize && pageSize > 0 ? pageSize : undefined;
-      const data = await this.chatbotService.getExportsByCountry(pageNum, pageSizeNum);
+      const data = await this.chatbotService.getExportsByCountry(
+        pageNum,
+        pageSizeNum,
+      );
       return res.status(200).json(data);
     } catch (error) {
       console.log('ERROR-EXPORTS-BY-COUNTRY:', error);
-      return res.status(500).json({ message: 'Error al obtener exportaciones por país y año' });
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener exportaciones por país y año' });
     }
   }
 }
