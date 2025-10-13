@@ -246,20 +246,19 @@ export class ChatbotService {
   ): Promise<Array<{ product: string; year: number; total: number; date: string }>> {
     try {
       const rawData = await this.Ceird.query(`
-        SELECT Año, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total, MAX(Fecha) as Fecha
-        FROM dbo.ChatBot
-        WHERE Total_Valor_FOB IS NOT NULL
-          AND Total_Valor_FOB > 0
-          AND [Sub-partida] NOT LIKE '%N/D%'
-          AND Año BETWEEN ${startYear} AND ${endYear}
-        GROUP BY Año, [Sub-partida]
-        ORDER BY Año, [Sub-partida]
+        SELECT YEAR([Fecha]) AS year, [País], SUM([US$ Millones]) AS total, MAX([Fecha]) as date
+        FROM vw_SEBCRDIEDPorPaisT
+        WHERE [US$ Millones] IS NOT NULL
+          AND [US$ Millones] > 0
+          AND YEAR([Fecha]) BETWEEN ${startYear} AND ${endYear}
+        GROUP BY YEAR([Fecha]), [País]
+        ORDER BY year, [País]
       `);
       return rawData.map((item: any) => ({
-        product: item.product,
-        year: item.Año,
+        country: item['País'],
+        year: item.year,
         total: Number(item.total),
-        date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
+        date: item.date ? new Date(item.date).toISOString().split('T')[0] : null
       }));
     } catch (error) {
       console.error('Error en getExportsByProduct:', error);
