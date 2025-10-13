@@ -118,19 +118,20 @@ export class ChatbotController {
    * @param endYear Año final del rango.
    * @returns HTML con el resumen de exportaciones por producto y año.
    */
-  @Get('exports-by-product/:startYear/:endYear')
-  async getExportsByProduct(@Res() res: Response, @Param('startYear') startYear: number, @Param('endYear') endYear: number) {
-    try {
-      if (!startYear || !endYear) {
-        return res.status(400).json({ error: 'Debe enviar startYear y endYear' });
-      }
-      const data = await this.chatbotService.getExportsByProduct(startYear, endYear);
-      return res.status(200).json(data);
-    } catch (error) {
-      console.log('ERROR-EXPORTS-BY-PRODUCT:', error);
-      return res.status(500).json({ message: 'Error al obtener exportaciones por producto y año' });
-    }
+  @Get('exports-by-product/:startDate/:endDate')
+async getExportsByProduct(
+  @Res() res: Response,
+  @Param('startDate') startDate: string,
+  @Param('endDate') endDate: string
+) {
+  try {
+    const data = await this.chatbotService.getExportsByProduct(startDate, endDate);
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log('ERROR-EXPORTS-BY-PRODUCT:', error);
+    return res.status(500).json({ message: 'Error al obtener exportaciones por producto y fecha' });
   }
+}
 
   /**
    * Endpoint para obtener el resumen de exportaciones por país y año.
