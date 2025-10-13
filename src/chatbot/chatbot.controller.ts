@@ -17,9 +17,9 @@ export class ChatbotController {
     @Query('pageSize') pageSize?: number,
     @Query('country') country?: string,
     @Query('year') year?: number,
+  ) {
     try {
       if (!product) {
-        return res.status(400).json({ error: 'Debe enviar el parámetro product' });
         return res
           .status(400)
           .json({ error: 'Debe enviar el parámetro product' });
