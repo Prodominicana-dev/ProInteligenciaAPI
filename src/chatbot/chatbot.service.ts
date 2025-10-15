@@ -252,7 +252,7 @@ export class ChatbotService {
       } else {
         endDateSQL = `'${endDate}'`;
       }
-      const rawData = await this.Ceird.query(`
+      const rawData = await this.Analytica.query(`
         SELECT [Fecha], [País], SUM([US$ Millones]) AS total
         FROM vw_SEBCRDIEDPorPaisT
         WHERE [US$ Millones] IS NOT NULL
