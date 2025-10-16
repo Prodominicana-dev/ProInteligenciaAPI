@@ -24,24 +24,27 @@ export class ChatbotService {
     country?: string,
     year?: number
   ): Promise<{ data: Array<{ country: string; year: number; total: number; date: string; product: string }>, total: number }> {
-    let query = `SELECT Año, Pais, [Sub-partida] AS product, SUM(Total_Valor_FOB) AS total, MAX(Fecha) as Fecha
-      FROM dbo.ChatBot
-      WHERE Total_Valor_FOB IS NOT NULL
-        AND Total_Valor_FOB > 0
-        AND [Sub-partida] = @0`;
+    let query = `SELECT p.nombre AS Pais, d.fecha_declaracion AS Año, prod.descripcion AS product, SUM(d.valor_exportacion_fob) AS total
+      FROM dbo.Declaraciones_New d
+      JOIN dbo.Paises_New p ON d.pais_id = p.id
+      JOIN dbo.Productos_New prod ON d.producto_id = prod.id
+      WHERE d.valor_exportacion_fob IS NOT NULL
+        AND d.valor_exportacion_fob > 0
+        AND d.fecha_declaracion >= 2020
+        AND prod.codigo_a6 = @0`;
     const params: any[] = [product];
     let paramIndex = 1;
     if (country) {
-      query += ` AND Pais = @${paramIndex}`;
+      query += ` AND p.nombre = @${paramIndex}`;
       params.push(country);
       paramIndex++;
     }
     if (year) {
-      query += ` AND Año = @${paramIndex}`;
+      query += ` AND d.fecha_declaracion = @${paramIndex}`;
       params.push(year);
       paramIndex++;
     }
-    query += ` GROUP BY Año, Pais, [Sub-partida] ORDER BY Año, Pais`;
+    query += ` GROUP BY p.nombre, d.fecha_declaracion, prod.descripcion ORDER BY d.fecha_declaracion, p.nombre`;
 
     const rawData = await this.Ceird.query(query, params);
     const total = rawData.length;
@@ -49,7 +52,7 @@ export class ChatbotService {
       country: item.Pais,
       year: item.Año,
       total: Number(item.total),
-      date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null,
+      date: null,
       product: item.product
     }));
     // paginación
@@ -211,20 +214,33 @@ export class ChatbotService {
    * Obtiene el resumen de exportaciones agrupadas por país y año.
    * @returns HTML con el resumen de exportaciones por país y año.
    */
-  async getExportsByCountry(page?: number, pageSize?: number): Promise<{ data: Array<{ country: string; year: number; total: number; date: string }>, total: number }> {
-    const rawData = await this.Ceird.query(`
-      SELECT Año, Pais, SUM(Total_Valor_FOB) AS Total, MAX(Fecha) as Fecha
-      FROM dbo.ChatBot
-      WHERE Total_Valor_FOB IS NOT NULL
-      GROUP BY Año, Pais
-      ORDER BY Año, Pais
-    `);
+  async getExportsByCountry(page?: number, pageSize?: number, year?: number, country?: string): Promise<{ data: Array<{ country: string; year: number; total: number; date: string }>, total: number }> {
+    let query = `
+      SELECT p.nombre AS Pais, d.fecha_declaracion AS Año, SUM(d.valor_exportacion_fob) AS Total
+      FROM dbo.Declaraciones_New d
+      JOIN dbo.Paises_New p ON d.pais_id = p.id
+      WHERE d.valor_exportacion_fob IS NOT NULL AND d.valor_exportacion_fob > 0 AND d.fecha_declaracion >= 2020`;
+    const params: any[] = [];
+    let paramIndex = 0;
+    if (year) {
+      query += ` AND d.fecha_declaracion = @${paramIndex}`;
+      params.push(year);
+      paramIndex++;
+    }
+    if (country) {
+      query += ` AND p.nombre = @${paramIndex}`;
+      params.push(country);
+      paramIndex++;
+    }
+    query += ` GROUP BY p.nombre, d.fecha_declaracion ORDER BY d.fecha_declaracion, p.nombre`;
+
+    const rawData = await this.Ceird.query(query, params);
 
     let data = rawData.map((item: any) => ({
       country: item.Pais,
       year: item.Año,
       total: Number(item.Total),
-      date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
+      date: null
     }));
     const total = data.length;
     if (page && pageSize) {
@@ -235,11 +251,20 @@ export class ChatbotService {
   }
 
   /**
-   * Obtiene el resumen de exportaciones agrupadas por producto y año, en un rango de años.
-   * @param startYear Año inicial del rango.
-   * @param endYear Año final del rango.
-   * @returns HTML con el resumen de exportaciones por producto y año.
+   * Obtiene la lista de productos disponibles.
+   * @returns Array de objetos con código y descripción del producto.
    */
+  async getProducts(): Promise<Array<{ code: string; description: string }>> {
+    const rawData = await this.Ceird.query(`
+      SELECT codigo_a6 AS code, descripcion AS description
+      FROM dbo.Productos_New
+      ORDER BY descripcion
+    `);
+    return rawData.map((item: any) => ({
+      code: item.code,
+      description: item.description
+    }));
+  }
   async getExportsByProduct(
     startDate: string,
     endDate: string,
