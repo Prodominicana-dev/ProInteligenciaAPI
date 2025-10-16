@@ -198,6 +198,8 @@ export class ChatbotController {
     @Res() res: Response,
     @Query('page') page?: number,
     @Query('pageSize') pageSize?: number,
+    @Query('year') year?: number,
+    @Query('country') country?: string,
   ) {
     try {
       const pageNum = page && page > 0 ? page : undefined;
@@ -205,6 +207,8 @@ export class ChatbotController {
       const data = await this.chatbotService.getExportsByCountry(
         pageNum,
         pageSizeNum,
+        year,
+        country,
       );
       return res.status(200).json(data);
     } catch (error) {
@@ -212,6 +216,107 @@ export class ChatbotController {
       return res
         .status(500)
         .json({ message: 'Error al obtener exportaciones por país y año' });
+    }
+  }
+
+  /**
+   * Endpoint para obtener la lista de productos disponibles.
+   * @returns Array de objetos con código y descripción del producto.
+   */
+  @Get('products')
+  async getProducts(@Res() res: Response) {
+    try {
+      const data = await this.chatbotService.getProducts();
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-PRODUCTS:', error);
+      return res
+        .status(500)
+        .json({ message: 'Error al obtener la lista de productos' });
+    }
+  }
+
+  /**
+   * Endpoint para exportaciones en 2020.
+   */
+  @Get('exports-2020')
+  async getExports2020(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string) {
+    try {
+      const data = await this.chatbotService.getExportsByCountry(page, pageSize, 2020, country);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-2020:', error);
+      return res.status(500).json({ message: 'Error al obtener exportaciones de 2020' });
+    }
+  }
+
+  /**
+   * Endpoint para exportaciones en 2021.
+   */
+  @Get('exports-2021')
+  async getExports2021(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string) {
+    try {
+      const data = await this.chatbotService.getExportsByCountry(page, pageSize, 2021, country);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-2021:', error);
+      return res.status(500).json({ message: 'Error al obtener exportaciones de 2021' });
+    }
+  }
+
+  /**
+   * Endpoint para exportaciones en 2022.
+   */
+  @Get('exports-2022')
+  async getExports2022(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string) {
+    try {
+      const data = await this.chatbotService.getExportsByCountry(page, pageSize, 2022, country);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-2022:', error);
+      return res.status(500).json({ message: 'Error al obtener exportaciones de 2022' });
+    }
+  }
+
+  /**
+   * Endpoint para exportaciones en 2023.
+   */
+  @Get('exports-2023')
+  async getExports2023(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string) {
+    try {
+      const data = await this.chatbotService.getExportsByCountry(page, pageSize, 2023, country);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-2023:', error);
+      return res.status(500).json({ message: 'Error al obtener exportaciones de 2023' });
+    }
+  }
+
+  /**
+   * Endpoint para exportaciones en 2024.
+   */
+  @Get('exports-2024')
+  async getExports2024(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string) {
+    try {
+      const data = await this.chatbotService.getExportsByCountry(page, pageSize, 2024, country);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-2024:', error);
+      return res.status(500).json({ message: 'Error al obtener exportaciones de 2024' });
+    }
+  }
+
+  /**
+   * Endpoint para exportaciones en 2025.
+   */
+  @Get('exports-2025')
+  async getExports2025(@Res() res: Response, @Query('page') page?: number, @Query('pageSize') pageSize?: number, @Query('country') country?: string) {
+    try {
+      const data = await this.chatbotService.getExportsByCountry(page, pageSize, 2025, country);
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log('ERROR-EXPORTS-2025:', error);
+      return res.status(500).json({ message: 'Error al obtener exportaciones de 2025' });
     }
   }
 }

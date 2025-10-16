@@ -4,7 +4,7 @@ import { MailService } from 'src/mail/mail.service';
 import IORedis from 'ioredis';
 
 const connection = new IORedis({
-  port: 6379,
+  port: 6380,
   maxRetriesPerRequest: null,
 });
 
