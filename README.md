@@ -39,19 +39,61 @@ $ npm run start:prod
 
 ## Endpoints principales
 
+### Endpoints de IED (Inversión Extranjera Directa)
 - `GET /apiv2/chatbot/ied-by-country` — IED por país
 - `GET /apiv2/chatbot/ied-by-sector` — IED por sector
 - `GET /apiv2/chatbot/ied-summary-by-year` — Resumen IED por año
-- `GET /apiv2/chatbot/exports-by-country` — Exportaciones por país
-- `GET /apiv2/chatbot/exports-by-product/:startYear/:endYear` — Exportaciones por producto y rango de años
 - `GET /apiv2/chatbot/last-update-date` — Última fecha de actualización de la data
-- `GET /apiv2/chatbot/ied-by-country-filtered?producto=PRODUCTO&fechaInicio=YYYY-MM-DD&fechaFin=YYYY-MM-DD` — IED por país filtrado por producto y fechas
+
+### Endpoints de Exportaciones
+- `GET /apiv2/chatbot/exports-by-country?year=YEAR&country=COUNTRY&page=PAGE&pageSize=SIZE` — Exportaciones por país (con filtros opcionales) / no usar 
+- `GET /apiv2/chatbot/exports-by-product-country?product=PRODUCT&country=COUNTRY&year=YEAR&page=PAGE&pageSize=SIZE` — Exportaciones por producto y país (con filtros)
+- `GET /apiv2/chatbot/products` — Lista de productos disponibles
+- `GET /apiv2/chatbot/exports-2020` — Exportaciones para el año 2020
+- `GET /apiv2/chatbot/exports-2021` — Exportaciones para el año 2021
+- `GET /apiv2/chatbot/exports-2022` — Exportaciones para el año 2022
+- `GET /apiv2/chatbot/exports-2023` — Exportaciones para el año 2023
+- `GET /apiv2/chatbot/exports-2024` — Exportaciones para el año 2024
+- `GET /apiv2/chatbot/exports-2025` — Exportaciones para el año 2025
   
 ### Notas sobre formato de respuesta
 
-- Todos los endpoints principales retornan la información en formato HTML, lista para ser procesada por sistemas que requieran este formato (por ejemplo, agentes de IA que no soportan JSON).
-- La estructura de los datos se presenta como resúmenes y listados en HTML, no como objetos JSON.
+- Los endpoints de IED retornan la información en formato HTML para compatibilidad con agentes de IA.
+- Los endpoints de exportaciones y productos retornan datos en formato JSON para mejor integración con aplicaciones modernas.
 
+## Actualizaciones Recientes
+
+### Integración de Base de Datos para Chatbot (Rama: feature/chatbot-db-integration)
+
+- **Nueva Estructura de Base de Datos**: Se crearon nuevas tablas relacionales para datos de exportaciones:
+  - `Declaraciones_New`: Contiene declaraciones de exportaciones con referencias a países y productos.
+  - `Paises_New`: Lista de países destino.
+  - `Productos_New`: Catálogo de productos con códigos A6 y descripciones.
+  - Estas tablas reemplazan consultas directas a Excel y mejoran el rendimiento y la integridad de datos.
+
+- **Script de Importación Actualizado** (`src/scripts/create-db-from-excel.ts`):
+  - Cambia el tipo de `fecha_declaracion` de NVARCHAR a INT para almacenar años como números enteros.
+  - Procesa fechas para extraer años y filtra datos desde 2020 en adelante.
+  - Utiliza batch inserts para importar grandes volúmenes de datos (ej. 391k filas).
+  - Ejecutar con: `npx ts-node src/scripts/create-db-from-excel.ts`
+
+- **Servicio de Chatbot Actualizado** (`src/chatbot/chatbot.service.ts`):
+  - Nuevos métodos: `getProducts()` para listar productos disponibles.
+  - Actualizados: `getExportsByCountry()` y `getExportsByProductCountry()` ahora consultan las nuevas tablas con JOINs, agregan filtros por año y país, y soportan paginación.
+  - Filtros aplicados: Solo años >= 2020, valores > 0.
+
+- **Controlador de Chatbot Actualizado** (`src/chatbot/chatbot.controller.ts`):
+  - Nuevos endpoints dedicados por año: `exports-2020`, `exports-2021`, ..., `exports-2025`.
+  - Endpoint `products` para obtener lista de productos.
+  - Parámetros de query agregados a `exports-by-country` y `exports-by-product-country` para filtros opcionales.
+
+- **Configuración de Redis**:
+  - Puerto cambiado a 6380 en `Redis/redis.windows.conf` para evitar conflictos.
+  - Asegurar que Redis esté corriendo en el puerto 6380 antes de iniciar la aplicación.
+
+- **Versionado**:
+  - Cambios subidos a la rama `feature/chatbot-db-integration` en GitHub.
+  - Para probar: Cambiar a la rama y ejecutar `npm run start:dev` con Redis activo.
 
 ## Test
 
