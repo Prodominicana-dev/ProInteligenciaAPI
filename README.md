@@ -46,7 +46,7 @@ $ npm run start:prod
 - `GET /apiv2/chatbot/last-update-date` — Última fecha de actualización de la data
 
 ### Endpoints de Exportaciones
-- `GET /apiv2/chatbot/exports-by-country?year=YEAR&country=COUNTRY&page=PAGE&pageSize=SIZE` — Exportaciones por país (con filtros opcionales) / no usar 
+- `GET /apiv2/chatbot/exports-by-country?year=YEAR&country=COUNTRY&page=PAGE&pageSize=SIZE` — Exportaciones por país (con filtros opcionales)  
 - `GET /apiv2/chatbot/exports-by-product-country?product=PRODUCT&country=COUNTRY&year=YEAR&page=PAGE&pageSize=SIZE` — Exportaciones por producto y país (con filtros)
 - `GET /apiv2/chatbot/products` — Lista de productos disponibles
 - `GET /apiv2/chatbot/exports-2020` — Exportaciones para el año 2020
