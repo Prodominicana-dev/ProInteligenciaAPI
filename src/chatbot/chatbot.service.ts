@@ -270,26 +270,25 @@ export class ChatbotService {
     endDate: string,
   ): Promise<Array<{ country: string; total: number; date: string }>> {
     try {
-      let endDateSQL = endDate;
-      const currentYear = new Date().getFullYear();
-      if (endDate.startsWith(currentYear.toString())) {
-        endDateSQL = 'GETDATE()';
-      } else {
-        endDateSQL = `'${endDate}'`;
-      }
-      const rawData = await this.Analytica.query(`
-        SELECT [Fecha], [País], SUM([US$ Millones]) AS total
-        FROM vw_SEBCRDIEDPorPaisT
-        WHERE [US$ Millones] IS NOT NULL
-          AND [US$ Millones] > 0
-          AND [Fecha] BETWEEN '${startDate}' AND ${endDateSQL}
-        GROUP BY [Fecha], [País]
-        ORDER BY [Fecha], [País]
+      // Parse dates to years for the new export tables
+      const startYear = new Date(startDate).getFullYear();
+      const endYear = new Date(endDate).getFullYear();
+
+      const rawData = await this.Ceird.query(`
+        SELECT p.nombre AS Pais, d.fecha_declaracion AS Año, SUM(d.valor_exportacion_fob) AS total
+        FROM dbo.Declaraciones_New d
+        JOIN dbo.Paises_New p ON d.pais_id = p.id
+        WHERE d.valor_exportacion_fob IS NOT NULL
+          AND d.valor_exportacion_fob > 0
+          AND d.fecha_declaracion BETWEEN ${startYear} AND ${endYear}
+        GROUP BY p.nombre, d.fecha_declaracion
+        ORDER BY d.fecha_declaracion, p.nombre
       `);
+
       return rawData.map((item: any) => ({
-        country: item['País'],
+        country: item.Pais,
         total: Number(item.total),
-        date: item.Fecha ? new Date(item.Fecha).toISOString().split('T')[0] : null
+        date: item.Año.toString()
       }));
     } catch (error) {
       console.error('Error en getExportsByProduct:', error);
