@@ -19,6 +19,8 @@ import { PartnerModule } from './partner/partner.module';
 import { PostModule } from './post/post.module';
 import { LogModule } from './log/log.module';
 import { ChatbotModule } from './chatbot/chatbot.module';
+import { RegionModule } from './region/region.module';
+import { CountryProfileModule } from './country-profile/country-profile.module';
 
 @Module({
   controllers: [AppController],
@@ -40,6 +42,8 @@ import { ChatbotModule } from './chatbot/chatbot.module';
     PostModule,
     LogModule,
     ChatbotModule,
+    RegionModule,
+    CountryProfileModule,
   ],
 })
 export class AppModule {}

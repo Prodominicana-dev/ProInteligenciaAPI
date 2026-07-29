@@ -31,8 +31,28 @@ model Country {
   abbreviation String @unique
   continent String?
   group String?
+  regionId Int?
+  region Region? @relation(fields: [regionId], references: [id])
   accesoamercados AccesoaMercados[]
   suscriber_countries SuscriberToCountry[]
+  countryProfiles CountryProfile[]
+}
+
+model Region{
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  status String? @default("active")
+  date DateTime? @default(now())
+  countries Country[]
+}
+
+model CountryProfile{
+  id String @id @default(uuid())
+  countryId Int
+  pdf String?
+  status String? @default("active")
+  date DateTime? @default(now())
+  country Country @relation(fields: [countryId], references: [id])
 }
 
 model Product {

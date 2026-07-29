@@ -22,7 +22,7 @@ const imageBase64 = require('image-base64');
 export class DataController {
   constructor(
     private readonly alertacomercialService: AlertacomercialService,
-  ) {}
+  ) { }
 
   /*
    *   Obtener las imagenes de los AlertaComercial por su id y nombre de imagen.
@@ -123,6 +123,22 @@ export class DataController {
     const pdfPath = path.join(
       process.cwd(),
       `public/data/post/pdf/${id}`,
+      pdfName,
+    );
+    const fileStream = fs.createReadStream(pdfPath);
+    const streamableFile = new StreamableFile(fileStream);
+    return streamableFile;
+  }
+  @Get('country-profile/:id/pdf/:pdfName')
+  getCountryProfilePdf(
+    @Param('id') id: string,
+    @Param('pdfName') pdfName: string,
+    @Res({ passthrough: true }) res: Response,
+  ): StreamableFile {
+    res.set({ 'Content-Type': 'application/pdf' });
+    const pdfPath = path.join(
+      process.cwd(),
+      `public/data/country-profile/pdf/${id}`,
       pdfName,
     );
     const fileStream = fs.createReadStream(pdfPath);
