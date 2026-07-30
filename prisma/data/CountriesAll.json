@@ -1,0 +1,1247 @@
+[
+  {
+    "name": "Andorra",
+    "abbreviation": "ad",
+    "continent": "Europa"
+  },
+  {
+    "name": "Emiratos Árabes Unidos",
+    "abbreviation": "ae",
+    "continent": "Asia"
+  },
+  {
+    "name": "Afganistán",
+    "abbreviation": "af",
+    "continent": "Asia"
+  },
+  {
+    "name": "Antigua y Barbuda",
+    "abbreviation": "ag",
+    "continent": "América"
+  },
+  {
+    "name": "Anguila",
+    "abbreviation": "ai",
+    "continent": "América"
+  },
+  {
+    "name": "Albania",
+    "abbreviation": "al",
+    "continent": "Europa"
+  },
+  {
+    "name": "Armenia",
+    "abbreviation": "am",
+    "continent": "Asia"
+  },
+  {
+    "name": "Angola",
+    "abbreviation": "ao",
+    "continent": "África"
+  },
+  {
+    "name": "Antártida",
+    "abbreviation": "aq",
+    "continent": "Antártida"
+  },
+  {
+    "name": "Argentina",
+    "abbreviation": "ar",
+    "continent": "América"
+  },
+  {
+    "name": "Samoa Estadounidense",
+    "abbreviation": "as",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Austria",
+    "abbreviation": "at",
+    "continent": "Europa"
+  },
+  {
+    "name": "Australia",
+    "abbreviation": "au",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Aruba",
+    "abbreviation": "aw",
+    "continent": "América"
+  },
+  {
+    "name": "Islas Äland",
+    "abbreviation": "ax",
+    "continent": "Europa"
+  },
+  {
+    "name": "Azerbaiyán",
+    "abbreviation": "az",
+    "continent": "Asia"
+  },
+  {
+    "name": "Bosnia y Herzegovina",
+    "abbreviation": "ba",
+    "continent": "Europa"
+  },
+  {
+    "name": "Barbados",
+    "abbreviation": "bb",
+    "continent": "América"
+  },
+  {
+    "name": "Bangladés",
+    "abbreviation": "bd",
+    "continent": "Asia"
+  },
+  {
+    "name": "Bélgica",
+    "abbreviation": "be",
+    "continent": "Europa"
+  },
+  {
+    "name": "Burquina Faso",
+    "abbreviation": "bf",
+    "continent": "África"
+  },
+  {
+    "name": "Bulgaria",
+    "abbreviation": "bg",
+    "continent": "Europa"
+  },
+  {
+    "name": "Baréin",
+    "abbreviation": "bh",
+    "continent": "Asia"
+  },
+  {
+    "name": "Burundi",
+    "abbreviation": "bi",
+    "continent": "África"
+  },
+  {
+    "name": "Benín",
+    "abbreviation": "bj",
+    "continent": "África"
+  },
+  {
+    "name": "San Bartolomé",
+    "abbreviation": "bl",
+    "continent": "América"
+  },
+  {
+    "name": "Islas Bermudas",
+    "abbreviation": "bm",
+    "continent": "América"
+  },
+  {
+    "name": "Brunei Darussalam",
+    "abbreviation": "bn",
+    "continent": "Asia"
+  },
+  {
+    "name": "Bolivia, Estado plurinacional de",
+    "abbreviation": "bo",
+    "continent": "América"
+  },
+  {
+    "name": "Islas BES (Caribe Neerlandés)",
+    "abbreviation": "bq",
+    "continent": "América"
+  },
+  {
+    "name": "Brasil",
+    "abbreviation": "br",
+    "continent": "América"
+  },
+  {
+    "name": "Bahamas",
+    "abbreviation": "bs",
+    "continent": "América"
+  },
+  {
+    "name": "Bután",
+    "abbreviation": "bt",
+    "continent": "Asia"
+  },
+  {
+    "name": "Isla Bouvet",
+    "abbreviation": "bv",
+    "continent": "Antártida"
+  },
+  {
+    "name": "Botsuana",
+    "abbreviation": "bw",
+    "continent": "África"
+  },
+  {
+    "name": "Bielorrusia",
+    "abbreviation": "by",
+    "continent": "Europa"
+  },
+  {
+    "name": "Belice",
+    "abbreviation": "bz",
+    "continent": "América"
+  },
+  {
+    "name": "Canadá",
+    "abbreviation": "ca",
+    "continent": "América"
+  },
+  {
+    "name": "Islas Cocos (Keeling)",
+    "abbreviation": "cc",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Congo, República Democrática del",
+    "abbreviation": "cd",
+    "continent": "África"
+  },
+  {
+    "name": "República Centroafricana",
+    "abbreviation": "cf",
+    "continent": "África"
+  },
+  {
+    "name": "Congo",
+    "abbreviation": "cg",
+    "continent": "África"
+  },
+  {
+    "name": "Suiza",
+    "abbreviation": "ch",
+    "continent": "Europa"
+  },
+  {
+    "name": "Costa de Marfíl",
+    "abbreviation": "ci",
+    "continent": "África"
+  },
+  {
+    "name": "Islas Cook",
+    "abbreviation": "ck",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Chile",
+    "abbreviation": "cl",
+    "continent": "América"
+  },
+  {
+    "name": "Camerún",
+    "abbreviation": "cm",
+    "continent": "África"
+  },
+  {
+    "name": "China",
+    "abbreviation": "cn",
+    "continent": "Asia"
+  },
+  {
+    "name": "Colombia",
+    "abbreviation": "co",
+    "continent": "América"
+  },
+  {
+    "name": "Costa Rica",
+    "abbreviation": "cr",
+    "continent": "América"
+  },
+  {
+    "name": "Cuba",
+    "abbreviation": "cu",
+    "continent": "América"
+  },
+  {
+    "name": "Cabo Verde",
+    "abbreviation": "cv",
+    "continent": "África"
+  },
+  {
+    "name": "Curazao",
+    "abbreviation": "cw",
+    "continent": "América"
+  },
+  {
+    "name": "Isla de Navidad",
+    "abbreviation": "cx",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Chipre",
+    "abbreviation": "cy",
+    "continent": "Asia"
+  },
+  {
+    "name": "Chequia",
+    "abbreviation": "cz",
+    "continent": "Europa"
+  },
+  {
+    "name": "Alemania",
+    "abbreviation": "de",
+    "continent": "Europa"
+  },
+  {
+    "name": "Yibuti",
+    "abbreviation": "dj",
+    "continent": "África"
+  },
+  {
+    "name": "Dinamarca",
+    "abbreviation": "dk",
+    "continent": "Europa"
+  },
+  {
+    "name": "Dominica",
+    "abbreviation": "dm",
+    "continent": "América"
+  },
+  {
+    "name": "República Dominicana",
+    "abbreviation": "do",
+    "continent": "América"
+  },
+  {
+    "name": "Algeria",
+    "abbreviation": "dz",
+    "continent": "África"
+  },
+  {
+    "name": "Ecuador",
+    "abbreviation": "ec",
+    "continent": "América"
+  },
+  {
+    "name": "Estonia",
+    "abbreviation": "ee",
+    "continent": "Europa"
+  },
+  {
+    "name": "Egipto",
+    "abbreviation": "eg",
+    "continent": "África"
+  },
+  {
+    "name": "Sahara Occidental",
+    "abbreviation": "eh",
+    "continent": "África"
+  },
+  {
+    "name": "Eritrea",
+    "abbreviation": "er",
+    "continent": "África"
+  },
+  {
+    "name": "España",
+    "abbreviation": "es",
+    "continent": "Europa"
+  },
+  {
+    "name": "Etiopía",
+    "abbreviation": "et",
+    "continent": "África"
+  },
+  {
+    "name": "Finlandia",
+    "abbreviation": "fi",
+    "continent": "Europa"
+  },
+  {
+    "name": "Fiyi",
+    "abbreviation": "fj",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Islas Falkland (Malvinas)",
+    "abbreviation": "fk",
+    "continent": "América"
+  },
+  {
+    "name": "Micronesia, Estados Federados de",
+    "abbreviation": "fm",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Islas Feroe",
+    "abbreviation": "fo",
+    "continent": "Europa"
+  },
+  {
+    "name": "Francia",
+    "abbreviation": "fr",
+    "continent": "Europa"
+  },
+  {
+    "name": "Gabón",
+    "abbreviation": "ga",
+    "continent": "África"
+  },
+  {
+    "name": "Reino Unido",
+    "abbreviation": "gb",
+    "continent": "Europa"
+  },
+  {
+    "name": "Granada",
+    "abbreviation": "gd",
+    "continent": "América"
+  },
+  {
+    "name": "Georgia",
+    "abbreviation": "ge",
+    "continent": "Asia"
+  },
+  {
+    "name": "Guayana Francesa",
+    "abbreviation": "gf",
+    "continent": "América"
+  },
+  {
+    "name": "Guernsey",
+    "abbreviation": "gg",
+    "continent": "Europa"
+  },
+  {
+    "name": "Ghana",
+    "abbreviation": "gh",
+    "continent": "África"
+  },
+  {
+    "name": "Gibraltar",
+    "abbreviation": "gi",
+    "continent": "Europa"
+  },
+  {
+    "name": "Groenlandia",
+    "abbreviation": "gl",
+    "continent": "América"
+  },
+  {
+    "name": "Gambia",
+    "abbreviation": "gm",
+    "continent": "África"
+  },
+  {
+    "name": "Guinea",
+    "abbreviation": "gn",
+    "continent": "África"
+  },
+  {
+    "name": "Guadalupe",
+    "abbreviation": "gp",
+    "continent": "América"
+  },
+  {
+    "name": "Guinea Ecuatorial",
+    "abbreviation": "gq",
+    "continent": "África"
+  },
+  {
+    "name": "Grecia",
+    "abbreviation": "gr",
+    "continent": "Europa"
+  },
+  {
+    "name": "Islas Georgias del Sur y Sándwich del Sur",
+    "abbreviation": "gs",
+    "continent": "Antártida"
+  },
+  {
+    "name": "Guatemala",
+    "abbreviation": "gt",
+    "continent": "América"
+  },
+  {
+    "name": "Guam",
+    "abbreviation": "gu",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Guinea-Bisáu",
+    "abbreviation": "gw",
+    "continent": "África"
+  },
+  {
+    "name": "Guyana",
+    "abbreviation": "gy",
+    "continent": "América"
+  },
+  {
+    "name": "Hong Kong",
+    "abbreviation": "hk",
+    "continent": "Asia"
+  },
+  {
+    "name": "Islas Heard y McDonald",
+    "abbreviation": "hm",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Honduras",
+    "abbreviation": "hn",
+    "continent": "América"
+  },
+  {
+    "name": "Croacia",
+    "abbreviation": "hr",
+    "continent": "Europa"
+  },
+  {
+    "name": "Haití",
+    "abbreviation": "ht",
+    "continent": "América"
+  },
+  {
+    "name": "Hungría",
+    "abbreviation": "hu",
+    "continent": "Europa"
+  },
+  {
+    "name": "Indonesia",
+    "abbreviation": "id",
+    "continent": "Asia"
+  },
+  {
+    "name": "Irlanda",
+    "abbreviation": "ie",
+    "continent": "Europa"
+  },
+  {
+    "name": "Israel",
+    "abbreviation": "il",
+    "continent": "Asia"
+  },
+  {
+    "name": "Isla de Man",
+    "abbreviation": "im",
+    "continent": "Europa"
+  },
+  {
+    "name": "India",
+    "abbreviation": "in",
+    "continent": "Asia"
+  },
+  {
+    "name": "Territorio Británico del Océano Índico",
+    "abbreviation": "io",
+    "continent": "Asia"
+  },
+  {
+    "name": "Irak",
+    "abbreviation": "iq",
+    "continent": "Asia"
+  },
+  {
+    "name": "Irán, República islámica de",
+    "abbreviation": "ir",
+    "continent": "Asia"
+  },
+  {
+    "name": "Islandia",
+    "abbreviation": "is",
+    "continent": "Europa"
+  },
+  {
+    "name": "Italia",
+    "abbreviation": "it",
+    "continent": "Europa"
+  },
+  {
+    "name": "Jersey",
+    "abbreviation": "je",
+    "continent": "Europa"
+  },
+  {
+    "name": "Jamaica",
+    "abbreviation": "jm",
+    "continent": "América"
+  },
+  {
+    "name": "Jordania",
+    "abbreviation": "jo",
+    "continent": "Asia"
+  },
+  {
+    "name": "Japón",
+    "abbreviation": "jp",
+    "continent": "Asia"
+  },
+  {
+    "name": "Kenia",
+    "abbreviation": "ke",
+    "continent": "África"
+  },
+  {
+    "name": "Kirguistán",
+    "abbreviation": "kg",
+    "continent": "Asia"
+  },
+  {
+    "name": "Camboya",
+    "abbreviation": "kh",
+    "continent": "Asia"
+  },
+  {
+    "name": "Kiribati",
+    "abbreviation": "ki",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Comores, Islas",
+    "abbreviation": "km",
+    "continent": "África"
+  },
+  {
+    "name": "San Cristóbal y Nieves",
+    "abbreviation": "kn",
+    "continent": "América"
+  },
+  {
+    "name": "Corea, República Democrática Popular de",
+    "abbreviation": "kp",
+    "continent": "Asia"
+  },
+  {
+    "name": "Corea, República de",
+    "abbreviation": "kr",
+    "continent": "Asia"
+  },
+  {
+    "name": "Kuwait",
+    "abbreviation": "kw",
+    "continent": "Asia"
+  },
+  {
+    "name": "Islas Caimán",
+    "abbreviation": "ky",
+    "continent": "América"
+  },
+  {
+    "name": "Kazajistán",
+    "abbreviation": "kz",
+    "continent": "Asia"
+  },
+  {
+    "name": "República Democrática Popular de Lao",
+    "abbreviation": "la",
+    "continent": "Asia"
+  },
+  {
+    "name": "Líbano",
+    "abbreviation": "lb",
+    "continent": "Asia"
+  },
+  {
+    "name": "Santa Lucía",
+    "abbreviation": "lc",
+    "continent": "América"
+  },
+  {
+    "name": "Liechtenstein",
+    "abbreviation": "li",
+    "continent": "Europa"
+  },
+  {
+    "name": "Sri Lanka",
+    "abbreviation": "lk",
+    "continent": "Asia"
+  },
+  {
+    "name": "Liberia",
+    "abbreviation": "lr",
+    "continent": "África"
+  },
+  {
+    "name": "Lesoto",
+    "abbreviation": "ls",
+    "continent": "África"
+  },
+  {
+    "name": "Lituania",
+    "abbreviation": "lt",
+    "continent": "Europa"
+  },
+  {
+    "name": "Luxemburgo",
+    "abbreviation": "lu",
+    "continent": "Europa"
+  },
+  {
+    "name": "Letonia",
+    "abbreviation": "lv",
+    "continent": "Europa"
+  },
+  {
+    "name": "Libia",
+    "abbreviation": "ly",
+    "continent": "África"
+  },
+  {
+    "name": "Marruecos",
+    "abbreviation": "ma",
+    "continent": "África"
+  },
+  {
+    "name": "Mónaco",
+    "abbreviation": "mc",
+    "continent": "Europa"
+  },
+  {
+    "name": "Moldavia, República de",
+    "abbreviation": "md",
+    "continent": "Europa"
+  },
+  {
+    "name": "Montenegro",
+    "abbreviation": "me",
+    "continent": "Europa"
+  },
+  {
+    "name": "San Martín (zona francesa)",
+    "abbreviation": "mf",
+    "continent": "América"
+  },
+  {
+    "name": "Madagascar",
+    "abbreviation": "mg",
+    "continent": "África"
+  },
+  {
+    "name": "Islas Marshall",
+    "abbreviation": "mh",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Macedonia del Norte",
+    "abbreviation": "mk",
+    "continent": "Europa"
+  },
+  {
+    "name": "Malí",
+    "abbreviation": "ml",
+    "continent": "África"
+  },
+  {
+    "name": "Birmania",
+    "abbreviation": "mm",
+    "continent": "Asia"
+  },
+  {
+    "name": "Mongolia",
+    "abbreviation": "mn",
+    "continent": "Asia"
+  },
+  {
+    "name": "Macao",
+    "abbreviation": "mo",
+    "continent": "Asia"
+  },
+  {
+    "name": "Islas Marianas del Norte",
+    "abbreviation": "mp",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Martinica",
+    "abbreviation": "mq",
+    "continent": "América"
+  },
+  {
+    "name": "Mauritania",
+    "abbreviation": "mr",
+    "continent": "África"
+  },
+  {
+    "name": "Montserrat",
+    "abbreviation": "ms",
+    "continent": "América"
+  },
+  {
+    "name": "Malta",
+    "abbreviation": "mt",
+    "continent": "Europa"
+  },
+  {
+    "name": "Mauricio",
+    "abbreviation": "mu",
+    "continent": "África"
+  },
+  {
+    "name": "Islas Maldivas",
+    "abbreviation": "mv",
+    "continent": "Asia"
+  },
+  {
+    "name": "Malaui",
+    "abbreviation": "mw",
+    "continent": "África"
+  },
+  {
+    "name": "México",
+    "abbreviation": "mx",
+    "continent": "América"
+  },
+  {
+    "name": "Malasia",
+    "abbreviation": "my",
+    "continent": "Asia"
+  },
+  {
+    "name": "Mozambique",
+    "abbreviation": "mz",
+    "continent": "África"
+  },
+  {
+    "name": "Namibia",
+    "abbreviation": "na",
+    "continent": "África"
+  },
+  {
+    "name": "Nueva Caledonia",
+    "abbreviation": "nc",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Niger",
+    "abbreviation": "ne",
+    "continent": "África"
+  },
+  {
+    "name": "Isla Norfolk",
+    "abbreviation": "nf",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Nigeria",
+    "abbreviation": "ng",
+    "continent": "África"
+  },
+  {
+    "name": "Nicaragua",
+    "abbreviation": "ni",
+    "continent": "América"
+  },
+  {
+    "name": "Países Bajos",
+    "abbreviation": "nl",
+    "continent": "Europa"
+  },
+  {
+    "name": "Noruega",
+    "abbreviation": "no",
+    "continent": "Europa"
+  },
+  {
+    "name": "Nepal",
+    "abbreviation": "np",
+    "continent": "Asia"
+  },
+  {
+    "name": "Nauru",
+    "abbreviation": "nr",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Niue",
+    "abbreviation": "nu",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Nueva Zelanda",
+    "abbreviation": "nz",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Omán",
+    "abbreviation": "om",
+    "continent": "Asia"
+  },
+  {
+    "name": "Panamá",
+    "abbreviation": "pa",
+    "continent": "América"
+  },
+  {
+    "name": "Perú",
+    "abbreviation": "pe",
+    "continent": "América"
+  },
+  {
+    "name": "Polinesia Francesa",
+    "abbreviation": "pf",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Papúa Nueva Guinea",
+    "abbreviation": "pg",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Filipinas",
+    "abbreviation": "ph",
+    "continent": "Asia"
+  },
+  {
+    "name": "Pakistán",
+    "abbreviation": "pk",
+    "continent": "Asia"
+  },
+  {
+    "name": "Polonia",
+    "abbreviation": "pl",
+    "continent": "Europa"
+  },
+  {
+    "name": "San Pedro y Miquelon",
+    "abbreviation": "pm",
+    "continent": "América"
+  },
+  {
+    "name": "Pitcairn",
+    "abbreviation": "pn",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Puerto Rico",
+    "abbreviation": "pr",
+    "continent": "América"
+  },
+  {
+    "name": "Palestina, Estado de",
+    "abbreviation": "ps",
+    "continent": "Asia"
+  },
+  {
+    "name": "Portugal",
+    "abbreviation": "pt",
+    "continent": "Europa"
+  },
+  {
+    "name": "Palaos",
+    "abbreviation": "pw",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Paraguay",
+    "abbreviation": "py",
+    "continent": "América"
+  },
+  {
+    "name": "Catar",
+    "abbreviation": "qa",
+    "continent": "Asia"
+  },
+  {
+    "name": "Reunión",
+    "abbreviation": "re",
+    "continent": "África"
+  },
+  {
+    "name": "Rumanía",
+    "abbreviation": "ro",
+    "continent": "Europa"
+  },
+  {
+    "name": "Serbia",
+    "abbreviation": "rs",
+    "continent": "Europa"
+  },
+  {
+    "name": "Federación Rusa",
+    "abbreviation": "ru",
+    "continent": "Europa"
+  },
+  {
+    "name": "Ruanda",
+    "abbreviation": "rw",
+    "continent": "África"
+  },
+  {
+    "name": "Arabia Saudí",
+    "abbreviation": "sa",
+    "continent": "Asia"
+  },
+  {
+    "name": "Islas Salomón",
+    "abbreviation": "sb",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Seychelles",
+    "abbreviation": "sc",
+    "continent": "África"
+  },
+  {
+    "name": "Sudán",
+    "abbreviation": "sd",
+    "continent": "África"
+  },
+  {
+    "name": "Suecia",
+    "abbreviation": "se",
+    "continent": "Europa"
+  },
+  {
+    "name": "Singapur",
+    "abbreviation": "sg",
+    "continent": "Asia"
+  },
+  {
+    "name": "Santa Elena, Ascensión y Tristán de Acuña",
+    "abbreviation": "sh",
+    "continent": "África"
+  },
+  {
+    "name": "Eslovenia",
+    "abbreviation": "si",
+    "continent": "Europa"
+  },
+  {
+    "name": "Svalbard y Jan Mayen",
+    "abbreviation": "sj",
+    "continent": "Europa"
+  },
+  {
+    "name": "Eslovaquia",
+    "abbreviation": "sk",
+    "continent": "Europa"
+  },
+  {
+    "name": "Sierra Leona",
+    "abbreviation": "sl",
+    "continent": "África"
+  },
+  {
+    "name": "San Marino",
+    "abbreviation": "sm",
+    "continent": "Europa"
+  },
+  {
+    "name": "Senegal",
+    "abbreviation": "sn",
+    "continent": "África"
+  },
+  {
+    "name": "Somalia",
+    "abbreviation": "so",
+    "continent": "África"
+  },
+  {
+    "name": "Surinám",
+    "abbreviation": "sr",
+    "continent": "América"
+  },
+  {
+    "name": "Sudán del Sur",
+    "abbreviation": "ss",
+    "continent": "África"
+  },
+  {
+    "name": "Santo Tomé y Príncipe",
+    "abbreviation": "st",
+    "continent": "África"
+  },
+  {
+    "name": "El Salvador",
+    "abbreviation": "sv",
+    "continent": "América"
+  },
+  {
+    "name": "Isla de San Martín (zona holandsea)",
+    "abbreviation": "sx",
+    "continent": "América"
+  },
+  {
+    "name": "República árabe de Siria",
+    "abbreviation": "sy",
+    "continent": "Asia"
+  },
+  {
+    "name": "Esuatini",
+    "abbreviation": "sz",
+    "continent": "África"
+  },
+  {
+    "name": "Islas Turcas y Caicos",
+    "abbreviation": "tc",
+    "continent": "América"
+  },
+  {
+    "name": "Chad",
+    "abbreviation": "td",
+    "continent": "África"
+  },
+  {
+    "name": "Territorios Franceses del Sur",
+    "abbreviation": "tf",
+    "continent": "Antártida"
+  },
+  {
+    "name": "Togo",
+    "abbreviation": "tg",
+    "continent": "África"
+  },
+  {
+    "name": "Tailandia",
+    "abbreviation": "th",
+    "continent": "Asia"
+  },
+  {
+    "name": "Tayikistán",
+    "abbreviation": "tj",
+    "continent": "Asia"
+  },
+  {
+    "name": "Tokelau",
+    "abbreviation": "tk",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Timor Oriental",
+    "abbreviation": "tl",
+    "continent": "Asia"
+  },
+  {
+    "name": "Turkmenistán",
+    "abbreviation": "tm",
+    "continent": "Asia"
+  },
+  {
+    "name": "Tunez",
+    "abbreviation": "tn",
+    "continent": "África"
+  },
+  {
+    "name": "Tonga",
+    "abbreviation": "to",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Turquía",
+    "abbreviation": "tr",
+    "continent": "Asia"
+  },
+  {
+    "name": "Trinidad y Tobago",
+    "abbreviation": "tt",
+    "continent": "América"
+  },
+  {
+    "name": "Tuvalu",
+    "abbreviation": "tv",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Taiwán, Provincia de China",
+    "abbreviation": "tw",
+    "continent": "Asia"
+  },
+  {
+    "name": "Tanzania, República unida de",
+    "abbreviation": "tz",
+    "continent": "África"
+  },
+  {
+    "name": "Ucrania",
+    "abbreviation": "ua",
+    "continent": "Europa"
+  },
+  {
+    "name": "Uganda",
+    "abbreviation": "ug",
+    "continent": "África"
+  },
+  {
+    "name": "Islas Ultramarinas Menores de Estados Unidos",
+    "abbreviation": "um",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Estados Unidos",
+    "abbreviation": "us",
+    "continent": "América"
+  },
+  {
+    "name": "Uruguay",
+    "abbreviation": "uy",
+    "continent": "América"
+  },
+  {
+    "name": "Uzbekistán",
+    "abbreviation": "uz",
+    "continent": "Asia"
+  },
+  {
+    "name": "Santa Sede (Ciudad Estado del Vaticano)",
+    "abbreviation": "va",
+    "continent": "Europa"
+  },
+  {
+    "name": "San Vicente y las Granadinas",
+    "abbreviation": "vc",
+    "continent": "América"
+  },
+  {
+    "name": "Venezuela, República Bolivariana de",
+    "abbreviation": "ve",
+    "continent": "América"
+  },
+  {
+    "name": "Islas Vírgenes, Británicas",
+    "abbreviation": "vg",
+    "continent": "América"
+  },
+  {
+    "name": "Islas Vírgenes, de EEUU",
+    "abbreviation": "vi",
+    "continent": "América"
+  },
+  {
+    "name": "Vietnam",
+    "abbreviation": "vn",
+    "continent": "Asia"
+  },
+  {
+    "name": "Vanuatu",
+    "abbreviation": "vu",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Wallis y Futuna",
+    "abbreviation": "wf",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Samoa",
+    "abbreviation": "ws",
+    "continent": "Oceanía"
+  },
+  {
+    "name": "Yemen",
+    "abbreviation": "ye",
+    "continent": "Asia"
+  },
+  {
+    "name": "Mayotte",
+    "abbreviation": "yt",
+    "continent": "África"
+  },
+  {
+    "name": "Sudáfrica",
+    "abbreviation": "za",
+    "continent": "África"
+  },
+  {
+    "name": "Zambia",
+    "abbreviation": "zm",
+    "continent": "África"
+  },
+  {
+    "name": "Zimbabue",
+    "abbreviation": "zw",
+    "continent": "África"
+  }
+]

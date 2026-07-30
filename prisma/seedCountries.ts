@@ -9,7 +9,7 @@
  *  Uso:  npx ts-node prisma/seedCountries.ts
  */
 const { PrismaClient } = require('@prisma/client');
-const countries = require('../public/data/CountriesAll.json');
+const countries = require('./data/CountriesAll.json');
 
 const prisma = new PrismaClient();
 
