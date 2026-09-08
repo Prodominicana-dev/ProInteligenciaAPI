@@ -156,7 +156,7 @@ export class SuscriberService {
           console.log(title, sub.name, products, countries);
           return await this.mailService.alertaComercialNotifyMail(
             title,
-            ['emilioconde@prodominicana.gob.do', 'rosaabreu@prodominicana.gob.do', 'andydelrosario@prodominicana.gob.do' ],
+            ['emilioconde@prodominicana.gob.do', 'rosaabreu@prodominicana.gob.do', 'andydelrosario@prodominicana.gob.do','todos@prodominicana.gob.do' ],
             sub.name,
             products,
             countries,
@@ -247,7 +247,7 @@ export class SuscriberService {
           const title = 'Nueva Suscripción a las Alertas de IED';
           return await this.mailService.alertaIEDNotifyMail(
             title,
-            ['temistoclesvalera@prodominicana.gob.do'],
+            ['temistoclesvalera@prodominicana.gob.do','todos@prodominicana.gob.do'],
             sub.name,
             categories,
           );
